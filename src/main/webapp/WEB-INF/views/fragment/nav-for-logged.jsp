@@ -8,7 +8,11 @@
             <ul class="dropdown">
                 <li><a href="${contextPath}/user">Profil</a></li>
                 <li><a href="#">Moje zbiórki</a></li>
-                <li><a href="${contextPath}/logout">Wyloguj</a></li>
+                <li>
+                    <form action="${contextPath}/logout" method="post">
+                        <input type="submit">Wyloguj</input>
+                    </form>
+                </li>
             </ul>
         </li>
     </ul>
