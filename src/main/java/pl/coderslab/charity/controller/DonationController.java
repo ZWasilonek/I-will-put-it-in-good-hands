@@ -1,6 +1,8 @@
 package pl.coderslab.charity.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,15 +31,13 @@ public class DonationController {
     private final InstitutionServiceImpl institutionService;
     private final DonationServiceImpl donationService;
     private final UserServiceImpl userService;
-    private final HttpSession session;
 
     @Autowired
-    public DonationController(CategoryServiceImpl categoryService, InstitutionServiceImpl institutionService, DonationServiceImpl donationService, UserServiceImpl userService, HttpSession session) {
+    public DonationController(CategoryServiceImpl categoryService, InstitutionServiceImpl institutionService, DonationServiceImpl donationService, UserServiceImpl userService) {
         this.categoryService = categoryService;
         this.institutionService = institutionService;
         this.donationService = donationService;
         this.userService = userService;
-        this.session = session;
     }
 
     @GetMapping
@@ -71,9 +71,19 @@ public class DonationController {
         return institutionService.findAll();
     }
 
+//    @ModelAttribute("userSession")
+//    public User getUserFromSession() {
+//        Long userId = (Long) session.getAttribute("userId");
+//        return userService.findById(userId);
+//    }
+
     @ModelAttribute("userSession")
     public User getUserFromSession() {
-        Long userId = (Long) session.getAttribute("userId");
-        return userService.findById(userId);
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            String userEmail = ((UserDetails) principal).getUsername();
+            return userService.findByEmail(userEmail);
+        }
+        return null;
     }
 }
