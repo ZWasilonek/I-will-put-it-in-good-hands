@@ -7,6 +7,8 @@ import pl.coderslab.charity.impl.generic.GenericServiceImpl;
 import pl.coderslab.charity.repository.DonationRepository;
 import pl.coderslab.charity.service.DonationService;
 
+import java.util.List;
+
 @Service
 public class DonationServiceImpl extends GenericServiceImpl<Donation, DonationRepository> implements DonationService<Donation> {
 
@@ -17,5 +19,15 @@ public class DonationServiceImpl extends GenericServiceImpl<Donation, DonationRe
 
     public Integer getQuantitySumFromAll() {
         return repository.getQuantitySumFromAll();
+    }
+
+    @Override
+    public Integer getQuantitySumFromUserId(Long userId) {
+        return repository.getQuantitySumFromUserId(userId);
+    }
+
+    @Override
+    public List<Donation> getDonationsByUserId(Long userId) {
+        return repository.getDonationsByUserId(userId);
     }
 }

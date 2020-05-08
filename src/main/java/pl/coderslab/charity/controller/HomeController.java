@@ -1,4 +1,4 @@
-package pl.coderslab.charity;
+package pl.coderslab.charity.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -94,19 +94,19 @@ public class HomeController {
         return "login";
     }
 
-    @PostMapping("/login")
-    public String getUserFromLoginForm(@Valid @ModelAttribute("loginUser") UserDTO userDTO,
-                                       BindingResult bindingResult) {
-        loginValidation.validate(userDTO, bindingResult);
-//        if (bindingResult.hasErrors()) return "login";
-        try {
-            securityService.autoLogin(userDTO.getEmail(), userDTO.getPassword());
-            if (!getSession(userDTO)) return "login";
-        } catch (UsernameNotFoundException e) {
-            return "login";
-        }
-        return "redirect:/donation";
-    }
+//    @PostMapping("/login")
+//    public String getUserFromLoginForm(@Valid @ModelAttribute("loginUser") UserDTO userDTO,
+//                                       BindingResult bindingResult) {
+//        loginValidation.validate(userDTO, bindingResult);
+////        if (bindingResult.hasErrors()) return "login";
+//        try {
+//            securityService.autoLogin(userDTO.getEmail(), userDTO.getPassword());
+//            if (!getSession(userDTO)) return "login";
+//        } catch (UsernameNotFoundException e) {
+//            return "login";
+//        }
+//        return "redirect:/donation";
+//    }
 //
 //    @GetMapping("/login")
 //    public String login(HttpServletRequest request, Model model) {

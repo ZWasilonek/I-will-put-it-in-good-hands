@@ -6,7 +6,7 @@
         <li class="logged-user">
             Witaj <c:out value="${userSession.firstName}"/>
             <ul class="dropdown">
-                <li><a href="#">Profil</a></li>
+                <li><a href="${contextPath}/user">Profil</a></li>
                 <li><a href="#">Moje zbiórki</a></li>
                 <li><a href="${contextPath}/logout">Wyloguj</a></li>
             </ul>

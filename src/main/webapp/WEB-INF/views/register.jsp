@@ -54,7 +54,7 @@
         </spring:bind>
 
         <div class="form-group form-group--buttons">
-          <a href="login.jsp" class="btn btn--without-border">Zaloguj się</a>
+          <a href="${contextPath}/login" class="btn btn--without-border">Zaloguj się</a>
           <button class="btn" type="submit">Załóż konto</button>
         </div>
       </form:form>

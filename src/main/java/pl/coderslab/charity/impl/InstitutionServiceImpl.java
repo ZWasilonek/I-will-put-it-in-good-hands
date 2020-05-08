@@ -10,7 +10,6 @@ import pl.coderslab.charity.service.InstitutionService;
 @Service
 public class InstitutionServiceImpl extends GenericServiceImpl<Institution, InstitutionRepository> implements InstitutionService<Institution> {
 
-
     @Autowired
     public InstitutionServiceImpl(InstitutionRepository repository) {
         super(repository);

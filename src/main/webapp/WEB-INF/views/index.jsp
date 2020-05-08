@@ -15,7 +15,7 @@
     <header class="header--main-page">
         <nav class="container container--70">
             <ul class="nav--actions">
-                <li><a href="${contextPath}/signIn" class="btn btn--small btn--without-border">Zaloguj</a></li>
+                <li><a href="${contextPath}/login" class="btn btn--small btn--without-border">Zaloguj</a></li>
                 <li><a href="${contextPath}/register" class="btn btn--small btn--highlighted">Załóż konto</a></li>
             </ul>
             <jsp:include page="/WEB-INF/views/fragment/header.jsp"/>
@@ -104,13 +104,26 @@
                 Możesz sprawdzić czym się zajmują.</p>
 
             <ul class="help--slides-items institutions-list">
-                <c:forEach var="institution" items="${institutions}" varStatus="counter">
+                <c:forEach var="institution" items="${institutions}">
                     <li class="institution-list-item">
                         <div class="col">
                             <div class="title"><c:out value="${institution.name}"/></div>
                             <div class="subtitle">Cel i misja: <c:out value="${institution.description}"/></div>
                         </div>
                     </li>
+<%--                    <c:forEach var="institution" items="${institutions}" varStatus="counter" begin="0" end="2">--%>
+<%--                    <li class="institution-list-item">--%>
+<%--                        <div class="col">--%>
+<%--                            <div class="title"><c:out value="${institutions.get(counter).name}"/></div>--%>
+<%--                            <div class="subtitle">Cel i misja: <c:out value="${institution.description}"/></div>--%>
+<%--                        </div>--%>
+<%--                    </li>--%>
+<%--                    <li class="institution-list-item">--%>
+<%--                        <div class="col">--%>
+<%--                            <div class="title"><c:out value="${institutions.get(counter + 1).name}"/></div>--%>
+<%--                            <div class="subtitle">Cel i misja: <c:out value="${institution.description}"/></div>--%>
+<%--                        </div>--%>
+<%--                    </li>--%>
                 </c:forEach>
             </ul>
         </div>

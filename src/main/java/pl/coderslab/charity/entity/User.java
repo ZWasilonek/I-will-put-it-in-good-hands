@@ -22,6 +22,15 @@ public class User extends GenericEntityID {
     @JoinTable(name = "user_authority",
             joinColumns = { @JoinColumn(name = "user_id") },
             inverseJoinColumns = { @JoinColumn(name = "authority_id") })
-    private Set<Authority> authorities = new HashSet<>();
+    private Set<Authority> authorities;
 
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "user_donations",
+            joinColumns = { @JoinColumn(name = "user_id") },
+            inverseJoinColumns = { @JoinColumn(name = "donation_id") })
+    private Set<Donation> donations;
+
+    public User () {
+        this.authorities = new HashSet<>();
+    }
 }

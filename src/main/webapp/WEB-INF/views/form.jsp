@@ -203,7 +203,7 @@
                   <li>
                     <span class="icon icon-hand"></span>
                     <span class="summary--text">
-                      Dla <span id="foundationName"></span> w Warszawie<span id="foundationCity"></span>
+                      Dla <span class="foundationName"></span> w Warszawie<span class="foundationCity"></span>
                     </span>
                   </li>
                 </ul>

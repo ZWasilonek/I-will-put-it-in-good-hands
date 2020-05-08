@@ -20,23 +20,28 @@
       <h2>Zaloguj się</h2>
       <form:form modelAttribute="loginUser" method="post">
 
-        <spring:bind path="email">
-        <div class="form-group ${status.error ? 'has-error' : ''}">
+        <div class="form-group">
           <form:input type="email" path="email" placeholder="Email" />
           <form:errors path="email" cssClass="error" element="div"/>
         </div>
-        </spring:bind>
 
-        <spring:bind path="password">
-        <div class="form-group ${status.error ? 'has-error' : ''}">
+        <div class="form-group">
           <form:input type="password" path="password" placeholder="Hasło" />
           <form:errors path="password" cssClass="error" element="div"/>
           <a href="#" class="btn btn--small btn--without-border reset-password">Przypomnij hasło</a>
         </div>
-        </spring:bind>
 
-<%--        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>--%>
+<%--        <c:if test="${not empty errorMessage}">--%>
+<%--          <div class="error"><c:out value="${errorMessage}"/></div>--%>
+<%--        </c:if>--%>
+<%--        <c:if test="${param.error}">--%>
+<%--          <div class="error">--%>
+<%--            <c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}" />--%>
+<%--          </div>--%>
+<%--        </c:if>--%>
 
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+        
         <div class="form-group form-group--buttons">
           <a href="${contextPath}/register" class="btn btn--without-border">Załóż konto</a>
           <button class="btn" type="submit">Zaloguj się</button> 
