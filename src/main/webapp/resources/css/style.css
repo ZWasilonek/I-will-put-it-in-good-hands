@@ -1914,3 +1914,10 @@ a.showUserContent {
   display: flex;
 }
 
+/* line 34, login.jsp */
+.error {
+  margin-top: -25px;
+  margin-left: 20px;
+  color: red;
+  font-size: 13px;
+}

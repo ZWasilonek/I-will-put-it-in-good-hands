@@ -7,8 +7,6 @@
 <!DOCTYPE html>
 <html lang="pl">
   <head>
-<%--    <meta name="_csrf" content="${_csrf.token}"/>--%>
-<%--    <meta name="_csrf_header" content="${_csrf.headerName}"/>--%>
     <jsp:include page="/WEB-INF/views/fragment/head.jsp"/>
     <title>Sign In</title>
   </head>
@@ -22,23 +20,19 @@
 
         <div class="form-group">
           <form:input type="email" path="email" placeholder="Email" />
-          <form:errors path="email" cssClass="error" element="div"/>
         </div>
 
         <div class="form-group">
           <form:input type="password" path="password" placeholder="Hasło" />
-          <form:errors path="password" cssClass="error" element="div"/>
           <a href="#" class="btn btn--small btn--without-border reset-password">Przypomnij hasło</a>
         </div>
 
-<%--        <c:if test="${not empty errorMessage}">--%>
-<%--          <div class="error"><c:out value="${errorMessage}"/></div>--%>
-<%--        </c:if>--%>
-<%--        <c:if test="${param.error}">--%>
-<%--          <div class="error">--%>
-<%--            <c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}" />--%>
-<%--          </div>--%>
-<%--        </c:if>--%>
+        <c:if test="${param.error != null}">
+          <div class="error">
+            Nieprawidłowy login lub hasło.<br>
+<%--            Reason: ${SPRING_SECURITY_LAST_EXCEPTION.message}--%>
+          </div>
+        </c:if>
 
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         
