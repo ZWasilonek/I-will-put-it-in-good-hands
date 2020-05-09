@@ -19,7 +19,6 @@ import pl.coderslab.charity.impl.DonationServiceImpl;
 import pl.coderslab.charity.impl.InstitutionServiceImpl;
 import pl.coderslab.charity.impl.UserServiceImpl;
 
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -70,12 +69,6 @@ public class DonationController {
     public List<Institution> getAllInstitutions() {
         return institutionService.findAll();
     }
-
-//    @ModelAttribute("userSession")
-//    public User getUserFromSession() {
-//        Long userId = (Long) session.getAttribute("userId");
-//        return userService.findById(userId);
-//    }
 
     @ModelAttribute("userSession")
     public User getUserFromSession() {

@@ -1,6 +1,8 @@
 package pl.coderslab.charity.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -11,7 +13,6 @@ import pl.coderslab.charity.entity.User;
 import pl.coderslab.charity.impl.DonationServiceImpl;
 import pl.coderslab.charity.impl.UserServiceImpl;
 
-import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,13 +22,11 @@ public class UserController {
 
     private final UserServiceImpl userService;
     private final DonationServiceImpl donationService;
-    private final HttpSession session;
 
     @Autowired
-    public UserController(UserServiceImpl userService, DonationServiceImpl donationService, HttpSession session) {
+    public UserController(UserServiceImpl userService, DonationServiceImpl donationService) {
         this.userService = userService;
         this.donationService = donationService;
-        this.session = session;
     }
 
     @GetMapping
@@ -35,14 +34,19 @@ public class UserController {
         return "user-panel";
     }
 
-    @ModelAttribute("sessionUser")
+    @ModelAttribute("userSession")
     public User getUserFromSession() {
-        return userService.findById(userSessionId());
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            String userEmail = ((UserDetails) principal).getUsername();
+            return userService.findByEmail(userEmail);
+        }
+        return null;
     }
 
     @ModelAttribute("allUserBags")
     public Integer getAllUserBags() {
-        Integer quantitySumFromUserId = donationService.getQuantitySumFromUserId(userSessionId());
+        Integer quantitySumFromUserId = donationService.getQuantitySumFromUserId(getUserFromSession().getId());
         if (quantitySumFromUserId != null) {
             return quantitySumFromUserId;
         }
@@ -51,7 +55,7 @@ public class UserController {
 
     @ModelAttribute("userDonations")
     public List<Donation> getAllUserDonations() {
-        return donationService.getDonationsByUserId(userSessionId());
+        return donationService.getDonationsByUserId(getUserFromSession().getId());
     }
 
     @ModelAttribute("userInstitutions")
@@ -59,9 +63,5 @@ public class UserController {
         return getAllUserDonations().stream()
                 .map(Donation::getInstitution)
                 .collect(Collectors.toList());
-    }
-
-    public Long userSessionId() {
-        return (Long) session.getAttribute("userId");
     }
 }

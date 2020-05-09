@@ -34,7 +34,6 @@ public class UserServiceImpl extends GenericServiceImpl<User, UserRepository> im
     }
 
     @Override
-    @Transactional
     public void saveUserDTO(UserDTO userDTO) {
         User user = new User();
         user.setEmail(userDTO.getEmail());
@@ -46,7 +45,6 @@ public class UserServiceImpl extends GenericServiceImpl<User, UserRepository> im
     }
 
     @Override
-    @Transactional
     public void setRole(User user) {
         Optional<User> admin = repository.findById(1L);
         Authority roleAdmin = authorityRepository.findByName(AuthorityType.ROLE_ADMIN);

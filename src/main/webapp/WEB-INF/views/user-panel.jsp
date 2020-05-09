@@ -20,8 +20,8 @@
     <div class="carousel-wrapper" id="userDonationsContentDiv">
         <div class="user-item-content carousel">
             <c:forEach var="donation" items="${userDonations}" varStatus="page">
-                <div class="carousel-item ${page.index == 0 ? 'initial' : ''}">
-                    <div class="user-panel--item-counter">
+                <div class="user-panel--item">
+                    <div>
                         <span><c:out value="${page.index + 1}"/>
                         </span>/<c:out value="${userDonations.size()}"/>
                     </div>
@@ -74,8 +74,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="carousel__button--next"></div>
-                    <div class="carousel__button--prev"></div>
                 </div>
             </c:forEach>
         </div>
@@ -104,7 +102,7 @@
 
     <div class="slogan container container--90">
         <div class="slogan--item">
-            <h1 class="hideUserNameH1">Witaj <c:out value="${sessionUser.firstName}"/></h1>
+            <h1 class="hideUserNameH1">Witaj <c:out value="${userSession.firstName}"/></h1>
 
             <div class="slogan--steps">
                 <ul class="slogan--steps-boxes">
@@ -151,6 +149,7 @@
 <%--<jsp:include page="/WEB-INF/views/fragment/footer.jsp"/>--%>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="<c:url value="/resources/js/slick.min.js"/>"></script>
 <script src="<c:url value="/resources/js/app.js"/>"></script>
 </body>
 </html>

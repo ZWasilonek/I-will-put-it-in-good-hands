@@ -1,4 +1,4 @@
-# create database charity_donation char set utf8mb4 collate utf8mb4_unicode_ci;
+create database charity_donation char set utf8mb4 collate utf8mb4_unicode_ci;
 select * from categories;
 select * from donations;
 
