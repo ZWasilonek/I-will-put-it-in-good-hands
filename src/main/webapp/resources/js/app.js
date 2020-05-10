@@ -186,7 +186,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
   const categoryIdInputArray = [];
   $('.categoryIdInput').on('change', function() {
-
     $('input[class = categoryIdInput]:checked').each(function () {
       const categoryID = $(this).val();
       if (categoryIdInputArray.indexOf(categoryID) === -1) {
@@ -195,14 +194,60 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   });
 
+  // let categoriesIds = [];
+  // let toCategoryNameReplace = false;
+  // $('span.categoryIdInput').each(function (index) {
+  //   categoriesIds.push(this.innerHTML);
+  //   const categoryID = categoriesIds[index];
+  //   if (categoryIdInputArray.indexOf(categoryID) === -1) {
+  //     categoryIdInputArray.push(categoryID);
+  //   }
+  //   toCategoryNameReplace = true;
+  // });
+
   const insertFoundationDescriptionHTML = function (categoryIdArr) {
+    debugger;
     categoryIdArr.forEach((id, index) => {
       if (categoriesName.get(id)) {
         const spamItem = categoriesName.get(id);
-        $("#categoryName").append((index === categoryIdArr.length-1) ? spamItem : spamItem + ", ");
+        // if(toCategoryNameReplace) {
+        //   $("#categoryName").text((index === categoryIdArr.length-1) ? spamItem : spamItem + ", ");
+        // } else
+          $("#categoryName").append((index === categoryIdArr.length-1) ? spamItem : spamItem + ", ");
       }
     })
   }
+
+  // let quantitiesArr = [];
+  // let toQuantityReplace = false;
+  // $('span#quantityInput').each(function () {
+  //   quantitiesArr.push(this.innerHTML);
+  //   toQuantityReplace = true;
+  // });
+
+  // if (toQuantityReplace) {
+  //   debugger;
+  //   quantitiesArr.forEach( function (index) {
+  //     let quantityVal = quantitiesArr[index];
+  //
+  //     switch (quantityVal) {
+  //       case "1":
+  //         $("#bagsNumber").text(bagNumber[0]);
+  //         insertFoundationDescriptionHTML(categoryIdInputArray);
+  //         break;
+  //       case "2":
+  //       case "3":
+  //       case "4":
+  //         $("#bagsNumber").text(bagNumber[1]);
+  //         insertFoundationDescriptionHTML(categoryIdInputArray);
+  //         break;
+  //       default:
+  //         $("#bagsNumber").text(bagNumber[2]);
+  //         insertFoundationDescriptionHTML(categoryIdInputArray);
+  //         break;
+  //     }
+  //   })
+  // }
 
   $("#quantityInput").on('input', function() {
     let quantityVal = $(this).val();
@@ -245,6 +290,16 @@ document.addEventListener("DOMContentLoaded", function() {
       }
     }
   });
+
+  // let selectedInstitutionId = [];
+  // $('span.foundationNameInput').each( function(index) {
+  //   selectedInstitutionId.push(this.innerText)
+  //   for (let [key] of institutionsNamesMap) {
+  //     if (selectedInstitutionId[index] === key) {
+  //       $(".foundationName").replaceAll(institutionsNamesMap.get(key));
+  //     }
+  //   }
+  // });
 
   $(".foundationCityInput").on("change paste keyup", function() {
     foundationCityValue = $(this).val();
@@ -310,19 +365,6 @@ document.addEventListener("DOMContentLoaded", function() {
     let id = $(this).attr('rel');
     let selectedContent = $('#'+id).slideToggle('slow');
     $('h1.hideUserNameH1').replaceWith(selectedContent);
-  })
-
-  $(function () {
-    $('.carousel').slick({
-      infinite: true,
-      slidesToShow: 1,
-      speed: 500,
-      dots: false,
-      fade: true,
-      cssEase: 'linear',
-      autoplay: true,
-      speed: 200
-    });
   })
 
 });

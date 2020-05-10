@@ -1852,48 +1852,30 @@ footer .bottom-line--icons a img {
   display: none;
 }
 
-a.showUserContent {
-  display: block;
+.container-user-panel {
+  margin: 70px 0 0 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-/*.user-panel--item {*/
-/*  height: calc(100% - 141px);*/
-/*  display: -webkit-box;*/
-/*  display: -ms-flexbox;*/
-/*  display: flex;*/
-/*  -webkit-box-pack: end;*/
-/*  justify-content: flex-end;*/
-/*  -webkit-box-align: center;*/
-/*  -ms-flex-align: center;*/
-/*  align-items: center;*/
-/*}*/
-
-/*.user-panel--item {*/
-/*  color: rebeccapurple;*/
-/*  font-size: larger;*/
-/*  padding-left: 35%;*/
-/*  text-decoration: none;*/
-/*}*/
-
-/*.user-panel--item ul {*/
-/*  list-style: none;*/
-/*}*/
-
 .user-item-content {
-  /*display: block;*/
-  /*display: -webkit-box;*/
-  /*display: -ms-flexbox;*/
-  /*display: flex;*/
-  /*-ms-flex-wrap: wrap;*/
-  /*flex-wrap: wrap;*/
-  margin-top: 80px;
-  /*padding-left: 35%;*/
   font-size: 1.4rem;
 }
 
-/*.user-item-content {*/
+.donation-summary * {
+  padding: 5px 0 5px -1px;
+}
 
-/*}*/
+.user-panel--item {
+  padding-left: 10%;
+  background-color: rgba(175,255,225,0.45);
+}
+
+a.showUserContent {
+  text-decoration: none;
+}
+
 .reception-section--columns {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1910,8 +1892,8 @@ a.showUserContent {
   flex-grow: 1;
 }
 
-.carousel button {
-  display: flex;
+.slogan-content li:hover {
+  background-color: #f9c910;
 }
 
 /* line 34, login.jsp */
