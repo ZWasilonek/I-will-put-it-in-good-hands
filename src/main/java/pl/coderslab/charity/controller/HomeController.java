@@ -83,4 +83,10 @@ public class HomeController {
         model.addAttribute("loginUser", new UserDTO());
         return "login";
     }
+
+
+    @GetMapping("/403")
+    public String error403() {
+        return "redirect:error";
+    }
 }

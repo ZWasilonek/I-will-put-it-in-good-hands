@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import pl.coderslab.charity.impl.UserDetailsServiceImpl;
 import pl.coderslab.charity.repository.UserRepository;
 
@@ -22,6 +23,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private AccessDeniedHandler accessDeniedHandler;
 
     @Bean
     public UserDetailsService userDetailsService() {
@@ -54,7 +57,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .deleteCookies("JSESSIONID")
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/")
-                .permitAll();
+                .permitAll()
+                .and()
+            .exceptionHandling().accessDeniedHandler(accessDeniedHandler)
+                .and().csrf().disable();
     }
 
     @Bean

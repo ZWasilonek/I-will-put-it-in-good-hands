@@ -22,8 +22,8 @@
             <c:forEach var="donation" items="${userDonations}" varStatus="page">
                 <div class="user-panel--item">
                     <div>
-                        <span><c:out value="${page.index + 1}"/>
-                        </span>/<c:out value="${userDonations.size()}"/>
+                        <span><c:out value="${page.index + 1}"/> /
+                        </span><c:out value="${userDonations.size()}"/>
                     </div>
                     <h3>Podsumowanie Twojej <span><c:out value="${page.index+1}"/></span> darowizny</h3>
                     <div>

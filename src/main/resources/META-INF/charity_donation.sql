@@ -11,7 +11,7 @@ Insert into institutions VALUES (null, 'Pomoc dzieciom z ubogich rodzin.', 'Fund
 Insert into institutions VALUES (null, 'Pomoc osobom znajdującym się w trudnej sytuacji życiowej.', 'Fundacja “Dla dzieci”'), (null, 'Pomoc dla osób nie posiadających miejsca zamieszkania.', 'Fundacja “Bez domu”');
 
 INSERT INTO donations VALUES (null, 'Warszawa', 'Brak komentarza', '2020-05-15', '15:00', '13','Kwiatowa', '04-888',2);
-INSERT INTO user_donations VALUES (1,3);
+INSERT INTO user_donations VALUES (1,1);
 
 INSERT INTO categories values (null, 'ubrania, które nadają się do ponownego użycia'), (null, 'ubrania, do wyrzucenia'), (null, 'zabawki'), (null, 'książki'), (null, 'inne');
 

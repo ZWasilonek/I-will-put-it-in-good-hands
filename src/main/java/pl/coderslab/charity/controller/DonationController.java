@@ -51,7 +51,10 @@ public class DonationController {
         if (bindingResult.hasErrors()) {
             return "form";
         }
-        donationService.create(donationForm);
+        if (donationForm != null) {
+            getUserFromSession().getDonations().add(donationForm);
+            donationService.create(donationForm);
+        }
         return "redirect:/donation/confirm";
     }
 
@@ -78,5 +81,10 @@ public class DonationController {
             return userService.findByEmail(userEmail);
         }
         return null;
+    }
+
+    @GetMapping("/403")
+    public String error403() {
+        return "redirect:error";
     }
 }

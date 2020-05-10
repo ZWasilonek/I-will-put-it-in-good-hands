@@ -34,7 +34,7 @@
           </div>
         </c:if>
 
-        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+<%--        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>--%>
         
         <div class="form-group form-group--buttons">
           <a href="${contextPath}/register" class="btn btn--without-border">Załóż konto</a>
