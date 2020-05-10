@@ -28,25 +28,6 @@ public class RegistrationValidation implements Validator {
     public void validate(Object o, Errors errors) {
         UserDTO userDTO = (UserDTO) o;
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "NotBlank");
-        String enteredEmail = userDTO.getEmail();
-        String enteredPassword = userDTO.getPassword();
-        User userFromDatabase = userService.findByEmail(enteredEmail);
-        if (userFromDatabase != null) {
-            if (userFromDatabase.getEmail().equals(enteredEmail))
-                errors.rejectValue("email", "Duplicated.userForm.Email");
-        }
-
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotBlank");
-//        if (!enteredPassword.equals("") && !enteredPassword.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\\\d)[a-zA-Z\\\\d]{8,20}$")) {
-//            errors.rejectValue("password", "Pattern.userForm.Password");
-//        }
-
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "confirmPassword", "NotBlank");
-        if (!enteredPassword.equals(userDTO.getConfirmPassword())) {
-            errors.rejectValue("confirmPassword", "PasswordConfirmation.userForm.Password");
-        }
-
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "firstName", "NotBlank");
         String enteredFirstName = userDTO.getFirstName();
         if (!enteredFirstName.equals("")) {
@@ -62,5 +43,26 @@ public class RegistrationValidation implements Validator {
                 errors.rejectValue("lastName", "Pattern.userForm.LastName");
             }
         }
+
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "NotBlank");
+        String enteredEmail = userDTO.getEmail();
+        String enteredPassword = userDTO.getPassword();
+        User userFromDatabase = userService.findByEmail(enteredEmail);
+        if (userFromDatabase != null) {
+            if (userFromDatabase.getEmail().equals(enteredEmail)) {
+                errors.rejectValue("email", "Duplicated.userForm.Email");
+            }
+        }
+
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotBlank");
+//        if (!enteredPassword.equals("") && !enteredPassword.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\\\d)[a-zA-Z\\\\d]{8,20}$")) {
+//            errors.rejectValue("password", "Pattern.userForm.Password");
+//        }
+
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "confirmPassword", "NotBlank");
+        if (!enteredPassword.equals(userDTO.getConfirmPassword())) {
+            errors.rejectValue("confirmPassword", "PasswordConfirmation.userForm.Password");
+        }
+
     }
 }

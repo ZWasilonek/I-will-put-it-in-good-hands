@@ -69,9 +69,8 @@ public class HomeController {
     @PostMapping("/register")
     public String getRegisteredUser(@Valid @ModelAttribute("registeredUser") UserDTO userDTO,
                                     BindingResult bindingResult) {
-
         registrationValidation.validate(userDTO, bindingResult);
-//        if (bindingResult.hasErrors()) return "register";
+        if (bindingResult.hasErrors()) return "register";
         userService.saveUserDTO(userDTO);
         securityService.autoLogin(userDTO.getEmail(), userDTO.getConfirmPassword());
         return "redirect:/donation";

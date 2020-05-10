@@ -17,8 +17,4 @@ public class Authority extends GenericEntityID {
 
     public Authority() {
     }
-
-    public Authority(AuthorityType name) {
-        this.name = name;
-    }
 }

@@ -51,12 +51,11 @@ public class UserServiceImpl extends GenericServiceImpl<User, UserRepository> im
         if (admin.isPresent()) {
             if (!user.getEmail().equals(admin.get().getEmail()))
                 user.getAuthorities().add(roleUser);
-                repository.insertUserRole(user.getId(), roleUser.getId());
         } else {
             user.getAuthorities().add(roleAdmin);
             user.getAuthorities().add(roleUser);
-            repository.insertUserRole(user.getId(), roleAdmin.getId());
         }
+        repository.save(user);
     }
 
 }

@@ -1915,7 +1915,7 @@ a.showUserContent {
 }
 
 /* line 34, login.jsp */
-.error {
+.login-error {
   margin-top: -25px;
   margin-left: 20px;
   color: red;

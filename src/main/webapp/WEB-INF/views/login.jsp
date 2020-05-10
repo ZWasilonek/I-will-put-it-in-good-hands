@@ -28,7 +28,7 @@
         </div>
 
         <c:if test="${param.error != null}">
-          <div class="error">
+          <div class="login-error">
             Nieprawidłowy login lub hasło.<br>
 <%--            Reason: ${SPRING_SECURITY_LAST_EXCEPTION.message}--%>
           </div>
