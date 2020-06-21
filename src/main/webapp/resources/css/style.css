@@ -431,6 +431,10 @@ h2:after {
   margin-left: calc(50% - 128px);
 }
 
+h2:nth-child(odd)::after {
+  margin-left: calc(50% - 128px);
+}
+
 /* line 25, scss/modules/_base.scss */
 .container {
   margin: 0 auto;
@@ -1405,7 +1409,7 @@ header nav ul li:last-of-type {
 
 /* line 27, scss/modules/homepage-sections/_help.scss */
 .help--slides > p {
-  margin: 0 auto 30px;
+  margin: 0 auto 50px;
   max-width: 630px;
   width: 100%;
   font-size: 1.8rem;
@@ -1431,11 +1435,12 @@ header nav ul li:last-of-type {
   margin-bottom: 35px;
 }
 
-/*SPRAWDZ CZY JESTDOBRZE!!*/
+/* line 113, scss/modules/homepage-sections/_help.scss */
 .help--slides-items li:nth-child(odd) * {
   text-align: left;
 }
 
+/* line 111, scss/modules/homepage-sections/_help.scss */
 .institutions-list {
   display: flex;
   flex-wrap: wrap;
@@ -1467,12 +1472,13 @@ header nav ul li:last-of-type {
   background-color: #bcbcbc;
 }
 
-/* line 72, scss/modules/homepage-sections/_help.scss */
-.help--slides-items .col:nth-child(even):after {
+/* line 113, scss/modules/homepage-sections/_help.scss */
+.help--slides-items li:nth-child(odd) *::after {
   float: left;
 }
 
-.help--slides-items .col:nth-child(odd):after {
+/* line 113, scss/modules/homepage-sections/_help.scss */
+.help--slides-items li:nth-child(even) *::after {
   float: right;
 }
 
@@ -1546,6 +1552,7 @@ footer .contact {
   max-width: 580px;
   width: 100%;
   padding-right: 30px;
+  margin-top: 20%;
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
@@ -1868,7 +1875,7 @@ footer .bottom-line--icons a img {
 }
 
 .user-panel--item {
-  padding-left: 10%;
+  padding-left: 15%;
   background-color: rgba(175,255,225,0.45);
 }
 
