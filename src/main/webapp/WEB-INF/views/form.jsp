@@ -68,7 +68,6 @@
       <div class="form--steps-container">
         <div class="form--steps-counter">Krok <span>1</span>/4</div>
 
-<%--        <form:form action="form-confirmation.jsp" method="post">--%>
         <!-- STEP 1: class .active is switching steps -->
         <form:form modelAttribute="donationForm" method="post" id="donationForm">
           <div data-step="1" class="active">
@@ -77,7 +76,6 @@
             <c:forEach var="category" items="${categories}">
             <div class="form-group form-group--checkbox">
               <label>
-<%--                <form:checkboxes path="categories" items="${categories}" itemLabel="name" itemValue="id"></form:checkboxes>--%>
                 <form:checkbox path="categories" value="${category.id}" cssClass="categoryIdInput"/>
                 <span class="checkbox"></span>
                 <span class="description"><c:out value="${category.name}"/></span>
@@ -97,7 +95,7 @@
             <div class="form-group form-group--inline">
               <label>
                 Liczba 60l worków:
-                <form:input path="quantity" type="number" step="1" min="1" id="quantityInput" />
+                <form:input path="quantity" type="number" step="1" min="1" id="quantityInput" required="required"/>
               </label>
             </div>
 
@@ -109,7 +107,7 @@
 
           <!-- STEP 3 -->
           <div data-step="3">
-            <h3>Wybierz organizacje, której chcesz pomóc:</h3>
+            <h3>Wybierz organizację, której chcesz pomóc:</h3>
 
             <c:forEach var="institution" items="${institutions}">
             <div class="form-group form-group--checkbox">
@@ -140,23 +138,23 @@
               <div class="form-section--column">
                 <h4>Adres odbioru</h4>
                 <div class="form-group form-group--inline">
-                  <label> Ulica <form:input path="street" type="text" id="streetInput"/> </label>
+                  <label> Ulica <form:input path="street" type="text" id="streetInput" required="required"/> </label>
                 </div>
 
                 <div class="form-group form-group--inline">
 <%--                  <label> Miasto <form:input path="city" type="text" id="foundationCityInput"/> </label>--%>
-                  <label> Miasto <form:input path="city" type="text" id="cityInput"/> </label>
+                  <label> Miasto <form:input path="city" type="text" id="cityInput" required="required"/> </label>
                 </div>
 
                 <div class="form-group form-group--inline">
                   <label>
-                    Kod pocztowy <form:input path="zipCode" type="text" id="zipCodeInput"/>
+                    Kod pocztowy <form:input path="zipCode" type="text" id="zipCodeInput" inputmode="numeric" pattern="^(?(^00000(|-0000))|(\d{5}(|-\d{4})))$" required="required"/>
                   </label>
                 </div>
 
                 <div class="form-group form-group--inline">
                   <label>
-                    Numer telefonu <input type="phone" id="phoneInput" />
+                    Numer telefonu <input type="tel" id="phoneInput" />
                   </label>
                 </div>
               </div>
@@ -164,11 +162,11 @@
               <div class="form-section--column">
                 <h4>Termin odbioru</h4>
                 <div class="form-group form-group--inline">
-                  <label> Data <form:input path="pickUpDate" type="date" formatter="yyyy-MM-dd" id="dateInput"/> </label>
+                  <label> Data <form:input path="pickUpDate" type="date" formatter="yyyy-MM-dd" id="dateInput" required="required"/> </label>
                 </div>
-
+                
                 <div class="form-group form-group--inline">
-                  <label> Godzina <form:input path="pickUpTime" type="time" formatter="HH:mm" id="hourInput"/> </label>
+                  <label> Godzina <form:input path="pickUpTime" type="time" formatter="HH:mm" id="hourInput" required="required"/> </label>
                 </div>
 
                 <div class="form-group form-group--inline">
@@ -213,19 +211,19 @@
                 <div class="form-section--column">
                   <h4>Adres odbioru:</h4>
                   <ul>
-                    <li id="streetLi"></li>
-                    <li id="cityLi">Warszawa</li>
-                    <li id="zipCodeLi">99-098</li>
-                    <li id="phoneLi">123 456 789</li>
+                    <li>Ulica: &nbsp;<span id="streetLi"></span></li>
+                    <li>Miasto: &nbsp;<span id="cityLi"></span></li>
+                    <li>Kod pocztowy: &nbsp;<span id="zipCodeLi"></span></li>
+                    <li>Telefon: &nbsp;<span id="phoneLi"></span></li>
                   </ul>
                 </div>
 
                 <div class="form-section--column">
                   <h4>Termin odbioru:</h4>
                   <ul>
-                    <li id="dateLi">13/12/2018</li>
-                    <li id="hourLi">15:40</li>
-                    <li id="commentsLi">Brak uwag</li>
+                    <li>Data: &nbsp;<span id="dateLi"></span></li>
+                    <li>Godzina: &nbsp;<span id="hourLi"></span></li>
+                    <li>Uwagi: &nbsp;<span id="commentsLi">Brak uwag</span></li>
                   </ul>
                 </div>
               </div>
