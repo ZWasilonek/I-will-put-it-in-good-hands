@@ -6,44 +6,43 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html lang="pl">
-  <head>
-    <jsp:include page="/WEB-INF/views/fragment/head.jsp"/>
-    <title>Sign In</title>
-  </head>
-  <body>
 
-    <jsp:include page="/WEB-INF/views/fragment/header-log-and-reg.jsp"/>
+    <head>
+        <jsp:include page="/WEB-INF/views/fragment/head.jsp"/>
+        <title>Sign In</title>
+    </head>
 
-    <section class="login-page">
-      <h2>Zaloguj się</h2>
-      <form:form modelAttribute="loginUser" method="post">
+    <body>
 
-        <div class="form-group">
-          <form:input type="email" path="email" placeholder="Email" />
-        </div>
+        <jsp:include page="/WEB-INF/views/fragment/header-log-and-reg.jsp"/>
 
-        <div class="form-group">
-          <form:input type="password" path="password" placeholder="Hasło" />
-          <a href="#" class="btn btn--small btn--without-border reset-password">Przypomnij hasło</a>
-        </div>
+        <section class="login-page">
+            <h2>Zaloguj się</h2>
+            <form:form modelAttribute="loginUser" method="post">
 
-        <c:if test="${param.error != null}">
-          <div class="login-error">
-            Nieprawidłowy login lub hasło.<br>
-<%--            Reason: ${SPRING_SECURITY_LAST_EXCEPTION.message}--%>
-          </div>
-        </c:if>
+                <div class="form-group">
+                    <form:input type="email" path="email" placeholder="Email"/>
+                </div>
 
-<%--        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>--%>
-        
-        <div class="form-group form-group--buttons">
-          <a href="${contextPath}/register" class="btn btn--without-border">Załóż konto</a>
-          <button class="btn" type="submit">Zaloguj się</button> 
-        </div>
-      </form:form>
-    </section>
+                <div class="form-group">
+                    <form:input type="password" path="password" placeholder="Hasło"/>
+                    <a href="#" class="btn btn--small btn--without-border reset-password">Przypomnij hasło</a>
+                </div>
 
-    <jsp:include page="/WEB-INF/views/fragment/footer.jsp"/>
+                <c:if test="${param.error != null}">
+                    <div class="login-error">
+                        Nieprawidłowy login lub hasło.<br>
+                    </div>
+                </c:if>
 
-  </body>
+                <div class="form-group form-group--buttons">
+                    <a href="${contextPath}/register" class="btn btn--without-border">Załóż konto</a>
+                    <button class="btn" type="submit">Zaloguj się</button>
+                </div>
+            </form:form>
+        </section>
+
+        <jsp:include page="/WEB-INF/views/fragment/footer.jsp"/>
+
+    </body>
 </html>
