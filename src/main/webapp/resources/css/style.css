@@ -1376,8 +1376,8 @@ header nav ul li:last-of-type {
           align-items: center;
   max-width: 990px;
   width: 100%;
-  padding: 0 30px;
-  margin: 60px auto;
+  padding: 60px 30px;
+  margin: 0 auto;
 }
 
 /* line 7, scss/modules/homepage-sections/_help.scss */
@@ -1826,7 +1826,7 @@ footer .bottom-line--icons a img {
       -ms-flex-align: center;
           align-items: center;
   font-size: 1.8rem;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 /* line 163, scss/style.scss */
