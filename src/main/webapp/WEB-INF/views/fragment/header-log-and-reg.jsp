@@ -4,8 +4,8 @@
 <header>
     <nav class="container container--70">
         <ul class="nav--actions">
-            <li><a href="${contextPath}/signIn">Zaloguj</a></li>
-            <li class="highlighted"><a href="${contextPath}/register">Załóż konto</a></li>
+            <li><a href="${contextPath}/login" class="btn btn--small btn--without-border">Zaloguj</a></li>
+            <li><a href="${contextPath}/register" class="btn btn--small btn--highlighted">Załóż konto</a></li>
         </ul>
         <jsp:include page="/WEB-INF/views/fragment/header.jsp"/>
     </nav>
