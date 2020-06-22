@@ -1910,3 +1910,8 @@ a.showUserContent {
   color: red;
   font-size: 13px;
 }
+
+.error {
+  color: red;
+  font-size: 13px;
+}
