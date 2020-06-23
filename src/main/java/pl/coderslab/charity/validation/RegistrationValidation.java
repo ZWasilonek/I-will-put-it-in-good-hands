@@ -7,15 +7,15 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 import pl.coderslab.charity.dto.UserDTO;
 import pl.coderslab.charity.entity.User;
-import pl.coderslab.charity.impl.UserServiceImpl;
+import pl.coderslab.charity.service.UserService;
 
 @Component
 public class RegistrationValidation implements Validator {
 
-    private final UserServiceImpl userService;
+    private final UserService userService;
 
     @Autowired
-    public RegistrationValidation(UserServiceImpl userService) {
+    public RegistrationValidation(UserService userService) {
         this.userService = userService;
     }
 
@@ -65,4 +65,5 @@ public class RegistrationValidation implements Validator {
         }
 
     }
+
 }
