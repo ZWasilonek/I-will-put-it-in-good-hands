@@ -6,54 +6,40 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import pl.coderslab.charity.entity.Category;
-import pl.coderslab.charity.entity.Donation;
-import pl.coderslab.charity.entity.Institution;
-import pl.coderslab.charity.entity.User;
-import pl.coderslab.charity.impl.CategoryServiceImpl;
-import pl.coderslab.charity.impl.DonationServiceImpl;
-import pl.coderslab.charity.impl.InstitutionServiceImpl;
-import pl.coderslab.charity.impl.UserServiceImpl;
+import org.springframework.web.bind.annotation.*;
+import pl.coderslab.charity.dto.*;
+import pl.coderslab.charity.facade.FacadeDonationService;
 
 import javax.validation.Valid;
-import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/donation")
 public class DonationController {
 
-    private final CategoryServiceImpl categoryService;
-    private final InstitutionServiceImpl institutionService;
-    private final DonationServiceImpl donationService;
-    private final UserServiceImpl userService;
+    private final FacadeDonationService facadeService;
 
     @Autowired
-    public DonationController(CategoryServiceImpl categoryService, InstitutionServiceImpl institutionService, DonationServiceImpl donationService, UserServiceImpl userService) {
-        this.categoryService = categoryService;
-        this.institutionService = institutionService;
-        this.donationService = donationService;
-        this.userService = userService;
+    public DonationController(FacadeDonationService donationService) {
+        this.facadeService = donationService;
     }
 
     @GetMapping
     public String displayForm(Model model) {
-        model.addAttribute("donationForm", new Donation());
+        model.addAttribute("donationForm", new DonationDTO());
         return "form";
     }
 
     @PostMapping
-    public String donationForm(@Valid @ModelAttribute("donationForm") Donation donationForm,
+    public String donationForm(@Valid @ModelAttribute("donationForm") DonationDTO donationForm,
                                BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "form";
         }
         if (donationForm != null) {
             getUserFromSession().getDonations().add(donationForm);
-            donationService.create(donationForm);
+            donationForm.getShippingAddress().setAddressOwner(getUserFromSession());
+            facadeService.create(donationForm);
         }
         return "redirect:/donation/confirm";
     }
@@ -64,21 +50,21 @@ public class DonationController {
     }
 
     @ModelAttribute("categories")
-    public List<Category> getAllCategories() {
-        return categoryService.findAll();
+    public Set<CategoryDTO> getAllCategories() {
+        return facadeService.getAllCategories();
     }
 
     @ModelAttribute("institutions")
-    public List<Institution> getAllInstitutions() {
-        return institutionService.findAll();
+    public Set<InstitutionDTO> getAllInstitutions() {
+        return facadeService.getAllInstitutions();
     }
 
     @ModelAttribute("userSession")
-    public User getUserFromSession() {
+    public UserDTO getUserFromSession() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails) {
             String userEmail = ((UserDetails) principal).getUsername();
-            return userService.findByEmail(userEmail);
+            return facadeService.findUserByEmail(userEmail);
         }
         return null;
     }
