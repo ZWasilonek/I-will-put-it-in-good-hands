@@ -8,33 +8,24 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import pl.coderslab.charity.dto.InstitutionDTO;
 import pl.coderslab.charity.dto.UserDTO;
-import pl.coderslab.charity.entity.Institution;
-import pl.coderslab.charity.impl.DonationServiceImpl;
-import pl.coderslab.charity.impl.InstitutionServiceImpl;
-import pl.coderslab.charity.impl.SecurityServiceImpl;
-import pl.coderslab.charity.impl.UserServiceImpl;
+import pl.coderslab.charity.facade.FacadeHomeService;
 import pl.coderslab.charity.validation.RegistrationValidation;
 
 import javax.validation.Valid;
-import java.util.List;
+import java.util.Set;
 
 @Controller
 public class HomeController {
 
-    private final InstitutionServiceImpl institutionService;
-    private final DonationServiceImpl donationService;
-    private final UserServiceImpl userService;
-    private final RegistrationValidation registrationValidation;
-    private final SecurityServiceImpl securityService;
+    private final FacadeHomeService facadeService;
+    private final RegistrationValidation validator;
 
     @Autowired
-    public HomeController(InstitutionServiceImpl institutionService, DonationServiceImpl donationService, UserServiceImpl userService, RegistrationValidation registrationValidation,SecurityServiceImpl securityService) {
-        this.institutionService = institutionService;
-        this.donationService = donationService;
-        this.userService = userService;
-        this.registrationValidation = registrationValidation;
-        this.securityService = securityService;
+    public HomeController(FacadeHomeService facadeHomeService, RegistrationValidation validator) {
+        this.facadeService = facadeHomeService;
+        this.validator = validator;
     }
 
     @RequestMapping("/")
@@ -43,19 +34,18 @@ public class HomeController {
     }
 
     @ModelAttribute("institutions")
-    public List<Institution> findAllInstitutions() {
-        List<Institution> a = institutionService.findAll();
-        return institutionService.findAll();
+    public Set<InstitutionDTO> findAllInstitutions() {
+        return facadeService.findAllInstitutions();
     }
 
     @ModelAttribute("allBags")
-    public Integer getQuantitySumFromAllDonations() {
-        return donationService.getQuantitySumFromAll();
+    public Integer getTotalBagsNumberFromAllDonations() {
+        return facadeService.getTotalBags();
     }
 
     @ModelAttribute("allDonations")
     public Integer getAllDonations() {
-        return donationService.findAll().size();
+        return facadeService.findAllDonations().size();
     }
 
 
@@ -69,10 +59,9 @@ public class HomeController {
     @PostMapping("/register")
     public String getRegisteredUser(@Valid @ModelAttribute("registeredUser") UserDTO userDTO,
                                     BindingResult bindingResult) {
-        registrationValidation.validate(userDTO, bindingResult);
+        validator.validate(userDTO, bindingResult);
         if (bindingResult.hasErrors()) return "register";
-        userService.saveUserDTO(userDTO);
-        securityService.autoLogin(userDTO.getEmail(), userDTO.getConfirmPassword());
+        facadeService.register(userDTO, bindingResult);
         return "redirect:/donation";
     }
 
@@ -89,4 +78,5 @@ public class HomeController {
     public String error403() {
         return "redirect:error";
     }
+
 }
