@@ -1,24 +1,23 @@
-package pl.coderslab.charity.impl;
+package pl.coderslab.charity.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.coderslab.charity.entity.Donation;
-import pl.coderslab.charity.impl.generic.GenericServiceImpl;
+import pl.coderslab.charity.service.impl.generic.GenericServiceImpl;
 import pl.coderslab.charity.repository.DonationRepository;
 import pl.coderslab.charity.service.DonationService;
-
-import java.util.List;
+import java.util.Set;
 
 @Service
-public class DonationServiceImpl extends GenericServiceImpl<Donation, DonationRepository> implements DonationService<Donation> {
+public class DonationServiceImpl extends GenericServiceImpl<Donation, DonationRepository> implements DonationService {
 
     @Autowired
     public DonationServiceImpl(DonationRepository repository) {
         super(repository);
     }
 
-    public Integer getQuantitySumFromAll() {
-        return repository.getQuantitySumFromAll();
+    public Integer getTotalBagsQuantity() {
+        return repository.getTotalBags();
     }
 
     @Override
@@ -27,7 +26,8 @@ public class DonationServiceImpl extends GenericServiceImpl<Donation, DonationRe
     }
 
     @Override
-    public List<Donation> getDonationsByUserId(Long userId) {
+    public Set<Donation> getDonationsByUserId(Long userId) {
         return repository.getDonationsByUserId(userId);
     }
+
 }
