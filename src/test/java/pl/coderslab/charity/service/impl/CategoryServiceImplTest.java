@@ -1,7 +1,6 @@
-package pl.coderslab.charity.impl;
+package pl.coderslab.charity.service.impl;
 
 import org.junit.Before;
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
