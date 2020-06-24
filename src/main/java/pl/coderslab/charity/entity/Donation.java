@@ -1,26 +1,20 @@
 package pl.coderslab.charity.entity;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import org.springframework.format.annotation.DateTimeFormat;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 import pl.coderslab.charity.entity.generic.GenericEntityID;
-
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.HashSet;
+import javax.persistence.*;
 import java.util.Set;
+import java.util.TreeSet;
 
-@EqualsAndHashCode(callSuper = true)
 @Entity(name = "donations")
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
 public class Donation extends GenericEntityID {
 
-    //number of bags
-    private Integer quantity;
+    private Integer bagsQuantity;
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Category> categories;
@@ -28,21 +22,11 @@ public class Donation extends GenericEntityID {
     @ManyToOne
     private Institution institution;
 
-    private String street;
-
-    private String city;
-
-    private String zipCode;
-
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate pickUpDate;
-
-    @DateTimeFormat(pattern = "HH:mm")
-    private LocalTime pickUpTime;
-
-    private String pickUpComment;
+    @ManyToOne(cascade = CascadeType.ALL)
+    private ShippingAddress shippingAddress;
 
     public Donation() {
-        categories = new HashSet<>();
+        categories = new TreeSet<>();
     }
+
 }
