@@ -76,7 +76,7 @@
             <c:forEach var="category" items="${categories}">
             <div class="form-group form-group--checkbox">
               <label>
-                <form:checkbox path="categories" value="${category.id}" cssClass="categoryIdInput"/>
+                <form:checkbox path="categories" itemValue="${category.id}" value="${category.id}" cssClass="categoryIdInput"/>
                 <span class="checkbox"></span>
                 <span class="description"><c:out value="${category.name}"/></span>
               </label>
@@ -95,7 +95,7 @@
             <div class="form-group form-group--inline">
               <label>
                 Liczba 60l worków:
-                <form:input path="quantity" type="number" step="1" min="1" id="quantityInput" required="required"/>
+                <form:input path="bagsQuantity" type="number" step="1" min="1" id="quantityInput" required="required"/>
               </label>
             </div>
 
@@ -112,7 +112,7 @@
             <c:forEach var="institution" items="${institutions}">
             <div class="form-group form-group--checkbox">
               <label>
-                <form:radiobutton path="institution" value="${institution.id}" cssClass="foundationNameInput"/>
+                <form:radiobutton path="institution.id" value="${institution.id}" cssClass="foundationNameInput"/>
                 <span class="checkbox radio"></span>
                 <span class="description">
                   <div class="title">${institution.name}</div>
@@ -138,23 +138,22 @@
               <div class="form-section--column">
                 <h4>Adres odbioru</h4>
                 <div class="form-group form-group--inline">
-                  <label> Ulica <form:input path="street" type="text" id="streetInput" required="required"/> </label>
+                  <label> Ulica <form:input path="shippingAddress.street" type="text" id="streetInput" required="required"/> </label>
                 </div>
 
                 <div class="form-group form-group--inline">
-<%--                  <label> Miasto <form:input path="city" type="text" id="foundationCityInput"/> </label>--%>
-                  <label> Miasto <form:input path="city" type="text" id="cityInput" required="required"/> </label>
+                  <label> Miasto <form:input path="shippingAddress.city" type="text" id="cityInput" required="required"/> </label>
                 </div>
 
                 <div class="form-group form-group--inline">
                   <label>
-                    Kod pocztowy <form:input path="zipCode" type="text" id="zipCodeInput" inputmode="numeric" pattern="^(?(^00000(|-0000))|(\d{5}(|-\d{4})))$" required="required"/>
+                    Kod pocztowy <form:input path="shippingAddress.zipCode" type="text" id="zipCodeInput" inputmode="numeric" pattern="^(?(^00000(|-0000))|(\d{5}(|-\d{4})))$" required="required"/>
                   </label>
                 </div>
 
                 <div class="form-group form-group--inline">
                   <label>
-                    Numer telefonu <input type="tel" id="phoneInput" />
+                    Numer telefonu <form:input path="shippingAddress.phoneNumber" type="tel" id="phoneInput" required="required"/>
                   </label>
                 </div>
               </div>
@@ -162,17 +161,17 @@
               <div class="form-section--column">
                 <h4>Termin odbioru</h4>
                 <div class="form-group form-group--inline">
-                  <label> Data <form:input path="pickUpDate" type="date" formatter="yyyy-MM-dd" id="dateInput" required="required"/> </label>
+                  <label> Data <form:input path="shippingAddress.pickUpDate" type="date" formatter="yyyy-MM-dd" id="dateInput" required="required"/> </label>
                 </div>
                 
                 <div class="form-group form-group--inline">
-                  <label> Godzina <form:input path="pickUpTime" type="time" formatter="HH:mm" id="hourInput" required="required"/> </label>
+                  <label> Godzina <form:input path="shippingAddress.pickUpTime" type="time" formatter="HH:mm" id="hourInput" required="required"/> </label>
                 </div>
 
                 <div class="form-group form-group--inline">
                   <label>
                     Uwagi dla kuriera
-                    <form:textarea path="pickUpComment" rows="5" id="commentsTextarea"/>
+                    <form:textarea path="shippingAddress.pickUpComment" rows="5" id="commentsTextarea"/>
                   </label>
                 </div>
               </div>
@@ -242,5 +241,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="<c:url value="/resources/js/app.js"/>"></script>
+
   </body>
+
 </html>
