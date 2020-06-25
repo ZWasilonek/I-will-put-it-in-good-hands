@@ -34,7 +34,7 @@
                                     <li>
                                         <span class="icon icon-bag"></span>
                                         <span class="summary--text">
-                                            <span id="quantityInput"><c:out value="${donation.quantity}"/></span>
+                                            <span id="quantityInput"><c:out value="${donation.bagsQuantity}"/></span>
                                             <span id="bagsNumber"> x </span>
 
                                             <c:forEach var="category" items="${donation.categories}" varStatus="status">
@@ -62,18 +62,18 @@
                                 <div class="form-section--column">
                                     <h4>Adres odbioru:</h4>
                                     <ul>
-                                        <li><c:out value="${donation.street}"/></li>
-                                        <li><c:out value="${donation.city}"/></li>
-                                        <li><c:out value="${donation.zipCode}"/></li>
+                                        <li><c:out value="${donation.shippingAddress.street}"/></li>
+                                        <li><c:out value="${donation.shippingAddress.city}"/></li>
+                                        <li><c:out value="${donation.shippingAddress.zipCode}"/></li>
                                     </ul>
                                 </div>
 
                                 <div class="form-section--column">
                                     <h4>Termin odbioru:</h4>
                                     <ul>
-                                        <li><c:out value="${donation.pickUpDate}"/></li>
-                                        <li><c:out value="${donation.pickUpTime}"/></li>
-                                        <li><c:out value="${donation.pickUpComment}"/></li>
+                                        <li><c:out value="${donation.shippingAddress.pickUpDate}"/></li>
+                                        <li><c:out value="${donation.shippingAddress.pickUpTime}"/></li>
+                                        <li><c:out value="${donation.shippingAddress.pickUpComment}"/></li>
                                     </ul>
                                 </div>
                             </div>
@@ -93,23 +93,24 @@
     </div>
 
 
-
-    <div class="user-panel--item-container" id="userInstitutionsContentDiv">
-    <!-- STEP 2 -->
-        <div>
+    <div class="carousel slide" id="userInstitutionsContentDiv" data-ride="carousel">
+        <div class="user-item-content carousel-inner">
             <c:forEach var="institution" items="${userInstitutions}">
-                <div class="form-group">
+                <div class="user-panel--item carousel-item">
                     <div class="title">${institution.name}</div>
                     <div class="subtitle">
                         Cel i misja: ${institution.description}
                     </div>
                 </div>
             </c:forEach>
-
-            <div class="form-group form-group--buttons">
-                <button type="button" class="btn prev-step">Wstecz</button>
-                <button type="button" class="btn next-step">Dalej</button>
-            </div>
+            <a class="carousel-control-prev" href="#userInstitutionsContentDiv" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon bg-warning" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#userInstitutionsContentDiv" role="button" data-slide="next">
+                <span class="carousel-control-next-icon bg-warning ml-5" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
         </div>
     </div>
 
