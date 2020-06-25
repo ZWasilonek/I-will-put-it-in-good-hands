@@ -1,17 +1,22 @@
 package pl.coderslab.charity.entity;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 import pl.coderslab.charity.entity.generic.GenericEntityID;
-
 import javax.persistence.Entity;
 
-@EqualsAndHashCode(callSuper = true)
 @Entity(name = "institutions")
-@Data
-public class Institution extends GenericEntityID {
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+public class Institution extends GenericEntityID implements Comparable<Institution> {
 
     private String name;
     private String description;
+
+    @Override
+    public int compareTo(Institution o) {
+        return name.compareToIgnoreCase(o.getName());
+    }
 
 }
