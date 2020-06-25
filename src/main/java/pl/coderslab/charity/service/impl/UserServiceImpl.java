@@ -1,13 +1,12 @@
-package pl.coderslab.charity.impl;
+package pl.coderslab.charity.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import pl.coderslab.charity.dto.UserDTO;
 import pl.coderslab.charity.entity.Authority;
 import pl.coderslab.charity.entity.User;
 import pl.coderslab.charity.entity.generic.AuthorityType;
-import pl.coderslab.charity.impl.generic.GenericServiceImpl;
+import pl.coderslab.charity.service.impl.generic.GenericServiceImpl;
 import pl.coderslab.charity.repository.AuthorityRepository;
 import pl.coderslab.charity.repository.UserRepository;
 import pl.coderslab.charity.service.UserService;
@@ -15,7 +14,7 @@ import pl.coderslab.charity.service.UserService;
 import java.util.*;
 
 @Service
-public class UserServiceImpl extends GenericServiceImpl<User, UserRepository> implements UserService<User> {
+public class UserServiceImpl extends GenericServiceImpl<User, UserRepository> implements UserService {
 
     private final BCryptPasswordEncoder passwordEncoder;
     private final AuthorityRepository authorityRepository;
@@ -33,14 +32,14 @@ public class UserServiceImpl extends GenericServiceImpl<User, UserRepository> im
     }
 
     @Override
-    public void saveUserDTO(UserDTO userDTO) {
-        User user = new User();
-        user.setEmail(userDTO.getEmail());
-        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-        user.setFirstName(userDTO.getFirstName().toUpperCase());
-        user.setLastName(userDTO.getLastName().toUpperCase());
-        repository.save(user);
-        setRole(user);
+    public void saveUser(User user) {
+        User newUser = new User();
+        newUser.setEmail(user.getEmail());
+        newUser.setPassword(passwordEncoder.encode(user.getPassword()));
+        newUser.setFirstName(user.getFirstName().toUpperCase());
+        newUser.setLastName(user.getLastName().toUpperCase());
+        repository.save(newUser);
+        setRole(newUser);
     }
 
     @Override
