@@ -1,4 +1,4 @@
-package pl.coderslab.charity.impl;
+package pl.coderslab.charity.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import pl.coderslab.charity.entity.Authority;
 import pl.coderslab.charity.entity.User;
-import pl.coderslab.charity.impl.generic.GenericServiceImpl;
+import pl.coderslab.charity.service.impl.generic.GenericServiceImpl;
 import pl.coderslab.charity.repository.UserRepository;
 
 import java.util.HashSet;
@@ -37,4 +37,5 @@ public class UserDetailsServiceImpl extends GenericServiceImpl<User, UserReposit
         }
         return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), grantedAuthorities);
     }
+
 }
