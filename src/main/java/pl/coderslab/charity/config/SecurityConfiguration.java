@@ -13,7 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
-import pl.coderslab.charity.impl.UserDetailsServiceImpl;
+import pl.coderslab.charity.service.impl.UserDetailsServiceImpl;
 import pl.coderslab.charity.repository.UserRepository;
 
 @Configuration
@@ -21,10 +21,14 @@ import pl.coderslab.charity.repository.UserRepository;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+    private final UserRepository userRepository;
+    private final AccessDeniedHandler accessDeniedHandler;
+
     @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private AccessDeniedHandler accessDeniedHandler;
+    public SecurityConfiguration(UserRepository userRepository, AccessDeniedHandler accessDeniedHandler) {
+        this.userRepository = userRepository;
+        this.accessDeniedHandler = accessDeniedHandler;
+    }
 
     @Bean
     public UserDetailsService userDetailsService() {
@@ -40,7 +44,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                     "/resources/**")
             .permitAll()
                 .antMatchers("/donation/**").hasAnyRole("USER", "ADMIN")
-                .antMatchers("/user/**").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/user").hasAnyRole("USER", "ADMIN")
                 .anyRequest()
                 .authenticated()
                 .and()
