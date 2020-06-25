@@ -1,16 +1,16 @@
 package pl.coderslab.charity.entity;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import pl.coderslab.charity.entity.generic.GenericEntityID;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-@EqualsAndHashCode(callSuper = true)
 @Entity(name = "users")
-@Data
+@Getter
+@Setter
 public class User extends GenericEntityID {
 
     private String firstName;
@@ -31,6 +31,8 @@ public class User extends GenericEntityID {
     private Set<Donation> donations;
 
     public User () {
+        this.donations = new HashSet<>();
         this.authorities = new HashSet<>();
     }
+
 }
