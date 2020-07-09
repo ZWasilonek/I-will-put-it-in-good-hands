@@ -26,7 +26,7 @@ public class UserDTO {
     }
 
     public String getFirstName() {
-        return firstName.toUpperCase();
+        return firstName;
     }
 
     public void setFirstName(String firstName) {
@@ -34,7 +34,7 @@ public class UserDTO {
     }
 
     public String getLastName() {
-        return lastName.toUpperCase();
+        return lastName;
     }
 
     public void setLastName(String lastName) {
