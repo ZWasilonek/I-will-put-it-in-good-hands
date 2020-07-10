@@ -18,7 +18,6 @@ public interface UserMapper {
             @Mapping(target = "password", source = "dto.password"),
             @Mapping(target = "email", source = "dto.email"),
             @Mapping(target = "authorities", source = "dto.authorities"),
-            @Mapping(target = "donations", source = "dto.donations"),
     })
     User mapToEntity(UserDTO dto);
 
@@ -29,7 +28,6 @@ public interface UserMapper {
             @Mapping(target = "password", source = "entity.password"),
             @Mapping(target = "email", source = "entity.email"),
             @Mapping(target = "authorities", source = "entity.authorities"),
-            @Mapping(target = "donations", source = "entity.donations"),
     })
     UserDTO mapToDTO(User entity);
 
