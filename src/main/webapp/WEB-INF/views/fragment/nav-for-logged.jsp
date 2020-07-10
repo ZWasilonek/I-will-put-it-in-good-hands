@@ -6,9 +6,9 @@
         <li class="logged-user">
             Witaj <c:out value="${userSession.firstName}"/>
             <ul class="dropdown">
-                <li><a href="${contextPath}/user">Profil</a></li>
-                <li><a href="#">Moje zbiórki</a></li>
-                <li><input formaction="${contextPath}/logout" formmethod="post" type="submit" value="Wyloguj"></li>
+                <li><a href="#">Profil</a></li>
+                <li><a href="${contextPath}/user">Moje zbiórki</a></li>
+                <li><a href="<c:url value="/logout"/>">Wyloguj</a></li>
             </ul>
         </li>
     </ul>
