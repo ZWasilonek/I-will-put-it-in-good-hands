@@ -12,10 +12,10 @@ public interface DonationRepository extends JpaRepository<Donation, Long> {
     @Query(value = "SELECT SUM(bags_quantity) FROM donations;", nativeQuery = true)
     Integer getTotalBags();
 
-    @Query(value = "SELECT SUM(bags_quantity) FROM user_donations ud JOIN donations ON ud.donation_id = donations.id WHERE user_id=:userId", nativeQuery = true)
+    @Query(value = "SELECT SUM(bags_quantity) FROM donations AS d straight_join users AS u ON d.user_id = u.id WHERE user_id=:userId", nativeQuery = true)
     Integer getQuantitySumFromUserId(@Param("userId") Long userId);
 
-    @Query(value = "SELECT id, bags_quantity, shipping_address_id, institution_id FROM donations d straight_join user_donations on d.id = user_donations.donation_id WHERE user_id=:userId", nativeQuery = true)
+    @Query(value = "SELECT d.id, d.bags_quantity, d.institution_id, d.shipping_address_id, d.user_id FROM donations AS d straight_join users AS u ON d.user_id = u.id WHERE user_id=:userId", nativeQuery = true)
     Set<Donation> getDonationsByUserId(@Param("userId") Long userId);
 
 }
