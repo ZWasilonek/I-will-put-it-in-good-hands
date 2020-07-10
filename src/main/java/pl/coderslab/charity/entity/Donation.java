@@ -25,6 +25,9 @@ public class Donation extends GenericEntityID {
     @ManyToOne(cascade = CascadeType.ALL)
     private ShippingAddress shippingAddress;
 
+    @ManyToOne(cascade = CascadeType.MERGE)
+    private User user;
+
     public Donation() {
         categories = new TreeSet<>();
     }
