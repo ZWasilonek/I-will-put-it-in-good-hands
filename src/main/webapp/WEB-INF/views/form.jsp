@@ -240,7 +240,7 @@
     <jsp:include page="/WEB-INF/views/fragment/footer.jsp"/>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="<c:url value="/resources/js/app.js"/>"></script>
+    <script src="<c:url value="/resources/js/form.js"/>"></script>
 
   </body>
 
