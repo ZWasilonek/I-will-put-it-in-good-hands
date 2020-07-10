@@ -18,7 +18,6 @@ public interface ShippingAddressMapper {
             @Mapping(target = "pickUpTime", source = "entity.pickUpTime"),
             @Mapping(target = "pickUpComment", source = "entity.pickUpComment"),
             @Mapping(target = "phoneNumber", source = "entity.phoneNumber"),
-            @Mapping(target = "addressOwner", source = "entity.user"),
     })
     ShippingAddressDTO mapToDTO(ShippingAddress entity);
 
@@ -31,7 +30,6 @@ public interface ShippingAddressMapper {
             @Mapping(source = "dto.pickUpTime", target = "pickUpTime"),
             @Mapping(source = "dto.pickUpComment", target = "pickUpComment"),
             @Mapping(source = "dto.phoneNumber", target = "phoneNumber"),
-            @Mapping(source = "dto.addressOwner", target = "user"),
     })
     ShippingAddress mapToEntity(ShippingAddressDTO dto);
 
