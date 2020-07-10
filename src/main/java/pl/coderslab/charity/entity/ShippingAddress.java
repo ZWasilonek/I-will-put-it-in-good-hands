@@ -1,6 +1,8 @@
 package pl.coderslab.charity.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 import pl.coderslab.charity.entity.generic.GenericEntityID;
@@ -13,6 +15,8 @@ import java.time.LocalTime;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class ShippingAddress extends GenericEntityID {
 
     @NotNull
@@ -36,9 +40,5 @@ public class ShippingAddress extends GenericEntityID {
 
     @NotNull
     private String phoneNumber;
-
-    @ManyToOne
-    @NotNull
-    private User user;
 
 }
