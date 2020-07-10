@@ -16,7 +16,8 @@ public interface DonationMapper {
             @Mapping(target = "bagsQuantity", source = "entity.bagsQuantity"),
             @Mapping(target = "categories", source = "entity.categories"),
             @Mapping(target = "institution", source = "entity.institution"),
-            @Mapping(target = "shippingAddress", source = "entity.shippingAddress")
+            @Mapping(target = "shippingAddress", source = "entity.shippingAddress"),
+            @Mapping(target = "userId", source = "entity.user.id")
     })
     DonationDTO mapToDTO(Donation entity);
 
@@ -25,7 +26,8 @@ public interface DonationMapper {
             @Mapping(target = "bagsQuantity", source = "dto.bagsQuantity"),
             @Mapping(target = "categories", source = "dto.categories"),
             @Mapping(target = "institution", source = "dto.institution"),
-            @Mapping(target = "shippingAddress", source = "dto.shippingAddress")
+            @Mapping(target = "shippingAddress", source = "dto.shippingAddress"),
+            @Mapping(target = "user.id", source = "dto.userId")
     })
     Donation mapToEntity(DonationDTO dto);
 
