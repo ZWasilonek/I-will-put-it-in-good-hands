@@ -18,6 +18,7 @@ public class DonationDTO {
     private Set<CategoryDTO> categories;
     private InstitutionDTO institution;
     private ShippingAddressDTO shippingAddress;
+    private Long userId;
 
     public DonationDTO() {
         categories = new TreeSet<>();
