@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function() {
-
   /**
    * Form Select
    */
@@ -65,6 +64,7 @@ document.addEventListener("DOMContentLoaded", function() {
       });
     }
   }
+
   document.querySelectorAll(".form-group--dropdown select").forEach(el => {
     new FormSelect(el);
   });
@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", function() {
   /**
    * Hide elements when clicked on document
    */
-  document.addEventListener("click", function(e) {
+  document.addEventListener("click", function (e) {
     const target = e.target;
     const tagName = target.tagName;
 
@@ -152,21 +152,26 @@ document.addEventListener("DOMContentLoaded", function() {
 
       // TODO: Validation
 
-      this.slides.forEach(slide => {
+      this.slides.forEach((slide, index) => {
         slide.classList.remove("active");
 
         if (slide.dataset.step == this.currentStep) {
+          if (index === 0) {
+            setCategoryIdInputArray()
+          }
+          if (index === 1) {
+            setDonationBags();
+          }
           slide.classList.add("active");
         }
       });
 
       this.$stepInstructions[0].parentElement.parentElement.hidden = this.currentStep >= 5;
       this.$step.parentElement.hidden = this.currentStep >= 5;
-
-      // TODO: get data from inputs and show them in summary
     }
 
   }
+
   const form = document.querySelector(".form--steps");
   if (form !== null) {
     new FormSteps(form);
@@ -185,91 +190,75 @@ document.addEventListener("DOMContentLoaded", function() {
   categoriesName.set('5', 'innych');
 
   const categoryIdInputArray = [];
-  $('.categoryIdInput').on('change', function() {
-    $('input[class = categoryIdInput]:checked').each(function () {
-      const categoryID = $(this).val();
-      if (categoryIdInputArray.indexOf(categoryID) === -1) {
-        categoryIdInputArray.push(categoryID);
-      }
+
+  function setCategoryIdInputArray() {
+    $('.categoryIdInput').on('change', function () {
+      $('input[class = categoryIdInput]:checked').each(function () {
+        const categoryID = $(this).val();
+        if (categoryIdInputArray.indexOf(categoryID) === -1) {
+          categoryIdInputArray.push(categoryID);
+        }
+      });
+
+      $('input[class = categoryIdInput]:not(:checked)').each(function () {
+        const categoryID = $(this).val();
+
+        if (categoryIdInputArray.length !== 0 && categoryID !== "") {
+          categoryIdInputArray.forEach((categoryVal, index) => {
+            if (categoryVal === categoryID) {
+              delete categoryIdInputArray[index];
+            }
+          })
+        }
+      })
     });
-  });
-
-  // let categoriesIds = [];
-  // let toCategoryNameReplace = false;
-  // $('span.categoryIdInput').each(function (index) {
-  //   categoriesIds.push(this.innerHTML);
-  //   const categoryID = categoriesIds[index];
-  //   if (categoryIdInputArray.indexOf(categoryID) === -1) {
-  //     categoryIdInputArray.push(categoryID);
-  //   }
-  //   toCategoryNameReplace = true;
-  // });
-
-  const insertFoundationDescriptionHTML = function (categoryIdArr) {
-    debugger;
-    categoryIdArr.forEach((id, index) => {
-      if (categoriesName.get(id)) {
-        const spamItem = categoriesName.get(id);
-        // if(toCategoryNameReplace) {
-        //   $("#categoryName").text((index === categoryIdArr.length-1) ? spamItem : spamItem + ", ");
-        // } else
-          $("#categoryName").append((index === categoryIdArr.length-1) ? spamItem : spamItem + ", ");
-      }
-    })
   }
 
-  // let quantitiesArr = [];
-  // let toQuantityReplace = false;
-  // $('span#quantityInput').each(function () {
-  //   quantitiesArr.push(this.innerHTML);
-  //   toQuantityReplace = true;
-  // });
-
-  // if (toQuantityReplace) {
-  //   debugger;
-  //   quantitiesArr.forEach( function (index) {
-  //     let quantityVal = quantitiesArr[index];
-  //
-  //     switch (quantityVal) {
-  //       case "1":
-  //         $("#bagsNumber").text(bagNumber[0]);
-  //         insertFoundationDescriptionHTML(categoryIdInputArray);
-  //         break;
-  //       case "2":
-  //       case "3":
-  //       case "4":
-  //         $("#bagsNumber").text(bagNumber[1]);
-  //         insertFoundationDescriptionHTML(categoryIdInputArray);
-  //         break;
-  //       default:
-  //         $("#bagsNumber").text(bagNumber[2]);
-  //         insertFoundationDescriptionHTML(categoryIdInputArray);
-  //         break;
-  //     }
-  //   })
-  // }
-
-  $("#quantityInput").on('input', function() {
-    let quantityVal = $(this).val();
-    $("#quantity").text(quantityVal);
-
-    switch (quantityVal) {
-      case "1":
-        $("#bagsNumber").text(bagNumber[0]);
-        insertFoundationDescriptionHTML(categoryIdInputArray);
-        break;
-      case "2":
-      case "3":
-      case "4":
-        $("#bagsNumber").text(bagNumber[1]);
-        insertFoundationDescriptionHTML(categoryIdInputArray);
-        break;
-      default:
-        $("#bagsNumber").text(bagNumber[2]);
-        insertFoundationDescriptionHTML(categoryIdInputArray);
-        break;
+  function setDonationBags() {
+    const insertFoundationDescriptionHTML = function (categoryIdArr) {
+      categoryIdArr.forEach((id, index) => {
+        const $idCategoryName = $("#categoryName");
+        if (categoriesName.get(id)) {
+          const spamItem = categoriesName.get(id);
+          if (index === categoryIdArr.length - 2) {
+            $idCategoryName.append(spamItem + " i ");
+          } else if (index === categoryIdArr.length - 1) {
+            $idCategoryName.append(spamItem);
+          } else $idCategoryName.append(spamItem + ", ");
+        }
+      })
     }
-  });
+
+    $("#quantityInput").on('change', function () {
+      const $classBagsNum = $("#bagsNumber");
+      let quantityVal = $(this).val();
+      $("#quantity").text(quantityVal);
+
+      switch (quantityVal) {
+        case "1":
+          $classBagsNum.text(bagNumber[0]);
+          insertFoundationDescriptionHTML(categoryIdInputArray);
+          break;
+        case "2":
+        case "3":
+        case "4":
+          $classBagsNum.text(bagNumber[1]);
+          insertFoundationDescriptionHTML(categoryIdInputArray);
+          break;
+        default:
+          $classBagsNum.text(bagNumber[2]);
+          insertFoundationDescriptionHTML(categoryIdInputArray);
+          break;
+      }
+    });
+  }
+
+  /**
+   * Update form front-end
+   * Hide input from 1-form donation.
+   */
+  $("#donationForm").append("<input type='hidden' value=on>");
+  $("input[type='hidden']").remove();
 
   /**
    * Update form front-end
@@ -291,18 +280,8 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   });
 
-  // let selectedInstitutionId = [];
-  // $('span.foundationNameInput').each( function(index) {
-  //   selectedInstitutionId.push(this.innerText)
-  //   for (let [key] of institutionsNamesMap) {
-  //     if (selectedInstitutionId[index] === key) {
-  //       $(".foundationName").replaceAll(institutionsNamesMap.get(key));
-  //     }
-  //   }
-  // });
-
   $(".foundationCityInput").on("change paste keyup", function() {
-    foundationCityValue = $(this).val();
+    let foundationCityValue = $(this).val();
     $(".foundationCity").text(foundationCityValue);
   });
 
@@ -311,22 +290,22 @@ document.addEventListener("DOMContentLoaded", function() {
    * Show pickup address.
    */
   $("#streetInput").on("change paste keyup", function() {
-    streetValue = $(this).val();
+    let streetValue = $(this).val();
     $("#streetLi").text(streetValue);
   });
 
   $("#cityInput").on("change paste keyup", function() {
-    cityVal = $(this).val();
+    let cityVal = $(this).val();
     $("#cityLi").text(cityVal);
   });
 
   $("#zipCodeInput").on("change paste keyup", function() {
-    zipCodeVal = $(this).val();
+    let zipCodeVal = $(this).val();
     $("#zipCodeLi").text(zipCodeVal);
   });
 
   $("#phoneInput").on("change paste keyup", function() {
-    phoneVal = $(this).val();
+    let phoneVal = $(this).val();
     $("#phoneLi").text(phoneVal);
   });
 
@@ -335,36 +314,20 @@ document.addEventListener("DOMContentLoaded", function() {
    * Show pickup date.
    */
   $("#dateInput").on("change paste keyup", function() {
-    dateVal = $(this).val();
+    let dateVal = $(this).val();
     $("#dateLi").text(dateVal);
   });
 
   $("#hourInput").on("change paste keyup", function() {
-    hourVal = $(this).val();
+    let hourVal = $(this).val();
     $("#hourLi").text(hourVal);
   });
 
   $("#commentsTextarea").on("change paste keyup", function() {
-    commentsVal = $(this).val();
+    let commentsVal = $(this).val();
     if (commentsVal !== '') {
       $("#commentsLi").text(commentsVal);
     }
   });
-
-  /**
-   * Update form front-end
-   * Hide input from 1-form donation.
-   */
-  $("#donationForm").append("<input type='hidden' value=on>");
-  $("input[type='hidden']").remove();
-
-  /**
-   * User donations
-   */
-  $('a.showUserContent').click(function () {
-    let id = $(this).attr('rel');
-    let selectedContent = $('#'+id).slideToggle('slow');
-    $('h1.hideUserNameH1').replaceWith(selectedContent);
-  })
 
 });
