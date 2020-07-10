@@ -5,7 +5,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 import pl.coderslab.charity.dto.AuthorityDTO;
 import pl.coderslab.charity.entity.Authority;
-import java.util.Collection;
+import java.util.Set;
 
 @Mapper(componentModel = "spring")
 public interface AuthorityMapper {
@@ -22,7 +22,7 @@ public interface AuthorityMapper {
     })
     Authority mapToEntity(AuthorityDTO dto);
 
-    Collection<AuthorityDTO> mapAuthoritiesToDTO(Collection<Authority> authorities);
-    Collection<Authority> mapAuthoritiesToEntities(Collection<AuthorityDTO> dtoSet);
+    Set<AuthorityDTO> mapAuthoritiesToDTO(Set<Authority> authorities);
+    Set<Authority> mapAuthoritiesToEntities(Set<AuthorityDTO> dtoSet);
 
 }
