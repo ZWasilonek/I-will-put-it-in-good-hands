@@ -37,8 +37,7 @@ public class DonationController {
             return "form";
         }
         if (donationForm != null) {
-            getUserFromSession().getDonations().add(donationForm);
-            donationForm.getShippingAddress().setAddressOwner(getUserFromSession());
+            donationForm.setUserId(getUserFromSession().getId());
             facadeService.create(donationForm);
         }
         return "redirect:/donation/confirm";
