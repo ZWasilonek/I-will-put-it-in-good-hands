@@ -1916,3 +1916,8 @@ a.showUserContent {
   color: red;
   font-size: 13px;
 }
+
+/* form.jsp steps */
+.form-donation-error {
+  color: red;
+}
