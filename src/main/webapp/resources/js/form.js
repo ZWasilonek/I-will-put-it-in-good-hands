@@ -1,4 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
+  const categoryIdInputArray = [];
+
   /**
    * Form Select
    */
@@ -150,24 +152,46 @@ document.addEventListener("DOMContentLoaded", function() {
     updateForm() {
       this.$step.innerText = this.currentStep;
 
-      // TODO: Validation
+      const setActive = () => {
+        this.slides.forEach(slide => {
+          slide.classList.remove("active");
 
-      this.slides.forEach((slide, index) => {
-        slide.classList.remove("active");
+          if (slide.dataset.step == this.currentStep) {
+            slide.classList.add("active");
+          }
+        });
+        this.$stepInstructions[0].parentElement.parentElement.hidden = this.currentStep >= 5;
+        this.$step.parentElement.hidden = this.currentStep >= 5;
+      }
 
-        if (slide.dataset.step == this.currentStep) {
-          if (index === 0) {
-            setCategoryIdInputArray()
-          }
-          if (index === 1) {
-            setDonationBags();
-          }
-          slide.classList.add("active");
+      //VALIDATION
+      const checkCategory = () => {
+        let isCategoryCorrect = validateCategory();
+        if (isCategoryCorrect) {
+          setActive();
+        } else {
+          this.currentStep--;
+          this.$step.innerText = this.currentStep;
         }
-      });
+      }
 
-      this.$stepInstructions[0].parentElement.parentElement.hidden = this.currentStep >= 5;
-      this.$step.parentElement.hidden = this.currentStep >= 5;
+      switch (this.currentStep) {
+        case 1:
+          setActive();
+          break;
+        case 2:
+          checkCategory();
+          break;
+        case 3:
+          setActive();
+          break;
+        case 4:
+          setActive();
+          break;
+        case 5:
+          setActive();
+          break;
+      }
     }
 
   }
@@ -189,7 +213,8 @@ document.addEventListener("DOMContentLoaded", function() {
   categoriesName.set('4', 'książek');
   categoriesName.set('5', 'innych');
 
-  const categoryIdInputArray = [];
+  setCategoryIdInputArray();
+  setDonationBags();
 
   function setCategoryIdInputArray() {
     $('.categoryIdInput').on('change', function () {
@@ -204,13 +229,14 @@ document.addEventListener("DOMContentLoaded", function() {
         const categoryID = $(this).val();
 
         if (categoryIdInputArray.length !== 0 && categoryID !== "") {
-          categoryIdInputArray.forEach((categoryVal, index) => {
+          categoryIdInputArray.forEach((categoryVal) => {
             if (categoryVal === categoryID) {
-              delete categoryIdInputArray[index];
+              categoryIdInputArray.pop();
             }
           })
         }
       })
+      validateCategory();
     });
   }
 
@@ -329,5 +355,51 @@ document.addEventListener("DOMContentLoaded", function() {
       $("#commentsLi").text(commentsVal);
     }
   });
+
+  /** VALIDATIONS **/
+  //Step 1 - choose category
+  function validateCategory() {
+    const ERROR = "Musisz wybrać jakąś kategorię";
+
+    manageShowError();
+
+    function isCategorySelected() {
+      return categoryIdInputArray.length !== 0;
+    }
+
+    function manageShowError() {
+      if (!isCategorySelected()) {
+        // alert(ERROR);
+        showMessage();
+      } else {
+        $(".category-error").hide();
+      }
+    }
+
+    function showMessage() {
+      let categoryError = $(".category-error");
+      if (categoryError.length === 0) {
+        let errorP = document.createElement("p");
+        errorP.innerHTML = ERROR;
+        errorP.classList.add("form-donation-error");
+        errorP.classList.add("category-error")
+        $('.form--steps-counter').append(errorP);
+      } else {
+        if (categoryError.is(":hidden")) {
+          categoryError.show();
+        }
+      }
+
+    }
+    return isCategorySelected();
+  }
+
+  function manageValidationError(event) {
+    const validationErrors = $(".form-donation-error");
+    validationErrors.on(event,() => {
+      if (validationErrors.hidden) validationErrors.removeAttr("hidden")
+      else validationErrors.hide();
+    })
+  }
 
 });
