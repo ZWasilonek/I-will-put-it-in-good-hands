@@ -21,9 +21,4 @@ INSERT INTO donations VALUES (null,3, 1, 2, 2);
 
 INSERT INTO donations_categories VALUES (1, 2),(2,4),(2,1);
 
-# INSERT INTO user_donations VALUES (1,1);
-# INSERT INTO user_donations VALUES (2,2);
-
 INSERT INTO categories values (null, 'ubrania, które nadają się do ponownego użycia'), (null, 'ubrania, do wyrzucenia'), (null, 'zabawki'), (null, 'książki'), (null, 'inne');
-
-select d.id, d.bags_quantity, d.institution_id, d.shipping_address_id from donations as d straight_join users as u on d.user_id = u.id where user_id=2
