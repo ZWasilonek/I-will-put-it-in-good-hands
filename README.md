@@ -1,1 +1,5 @@
-# I-will-put-it-in-good-hands
+#Oddam w dobre ręce
+
+## Technologie
+ * Java
+ * JavaScript
