@@ -175,6 +175,16 @@ document.addEventListener("DOMContentLoaded", function() {
         }
       }
 
+      const checkBagsQuantity = () => {
+        let isBagsNumbEntered = validateBagsQuantity();
+        if (isBagsNumbEntered) {
+          setActive();
+        } else {
+          this.currentStep--;
+          this.$step.innerText = this.currentStep;
+        }
+      }
+
       switch (this.currentStep) {
         case 1:
           setActive();
@@ -183,7 +193,7 @@ document.addEventListener("DOMContentLoaded", function() {
           checkCategory();
           break;
         case 3:
-          setActive();
+          checkBagsQuantity();
           break;
         case 4:
           setActive();
@@ -214,8 +224,9 @@ document.addEventListener("DOMContentLoaded", function() {
   categoriesName.set('5', 'innych');
 
   setCategoryIdInputArray();
-  setDonationBags();
+  displayBagsQuantity()
 
+  /** STEP 1 - SELECT THE CATEGORY **/
   function setCategoryIdInputArray() {
     $('.categoryIdInput').on('change', function () {
       $('input[class = categoryIdInput]:checked').each(function () {
@@ -238,24 +249,34 @@ document.addEventListener("DOMContentLoaded", function() {
       })
       validateCategory();
     });
+
+    /**
+     * Update form front-end
+     * Hide input from 1-form donation.
+     */
+    $("#donationForm").append("<input type='hidden' value=on>");
+    $("input[type='hidden']").remove();
   }
 
-  function setDonationBags() {
-    const insertFoundationDescriptionHTML = function (categoryIdArr) {
-      categoryIdArr.forEach((id, index) => {
-        const $idCategoryName = $("#categoryName");
-        if (categoriesName.get(id)) {
-          const spamItem = categoriesName.get(id);
-          if (index === categoryIdArr.length - 2) {
-            $idCategoryName.append(spamItem + " i ");
-          } else if (index === categoryIdArr.length - 1) {
-            $idCategoryName.append(spamItem);
-          } else $idCategoryName.append(spamItem + ", ");
-        }
-      })
-    }
+  function getSelectedCategories(categoryIdArr) {
+    categoryIdArr.forEach((id, index) => {
+      const $idCategoryName = $("#categoryName");
+      if (categoriesName.get(id)) {
+        const spamItem = categoriesName.get(id);
+        if (index === categoryIdArr.length - 2) {
+          $idCategoryName.append(spamItem + " i ");
+        } else if (index === categoryIdArr.length - 1) {
+          $idCategoryName.append(spamItem);
+        } else $idCategoryName.append(spamItem + ", ");
+      }
+    })
+  }
 
-    $("#quantityInput").on('change', function () {
+  /** STEP 2 - ENTER QUANTITY OF BAGS **/
+  function displayBagsQuantity() {
+    const $bagsNumbInput = $("#quantityInput");
+    $bagsNumbInput.val(1);
+    $bagsNumbInput.on('change', function () {
       const $classBagsNum = $("#bagsNumber");
       let quantityVal = $(this).val();
       $("#quantity").text(quantityVal);
@@ -263,29 +284,23 @@ document.addEventListener("DOMContentLoaded", function() {
       switch (quantityVal) {
         case "1":
           $classBagsNum.text(bagNumber[0]);
-          insertFoundationDescriptionHTML(categoryIdInputArray);
+          getSelectedCategories(categoryIdInputArray);
           break;
         case "2":
         case "3":
         case "4":
           $classBagsNum.text(bagNumber[1]);
-          insertFoundationDescriptionHTML(categoryIdInputArray);
+          getSelectedCategories(categoryIdInputArray);
           break;
         default:
           $classBagsNum.text(bagNumber[2]);
-          insertFoundationDescriptionHTML(categoryIdInputArray);
+          getSelectedCategories(categoryIdInputArray);
           break;
       }
     });
   }
 
-  /**
-   * Update form front-end
-   * Hide input from 1-form donation.
-   */
-  $("#donationForm").append("<input type='hidden' value=on>");
-  $("input[type='hidden']").remove();
-
+  /** STEP 3 - SELECT FOUNDATION **/
   /**
    * Update form front-end
    * Show institution name and city.
@@ -311,6 +326,7 @@ document.addEventListener("DOMContentLoaded", function() {
     $(".foundationCity").text(foundationCityValue);
   });
 
+  /** STEP 4 - GET ADDRESS **/
   /**
    * Update form front-end
    * Show pickup address.
@@ -360,24 +376,21 @@ document.addEventListener("DOMContentLoaded", function() {
   //Step 1 - choose category
   function validateCategory() {
     const ERROR = "Musisz wybrać jakąś kategorię";
+    let categoryError = $(".category-error");
 
-    manageShowError();
+    (function() {
+      if (!isCategorySelected()) {
+        showErrorMessage();
+      } else {
+        categoryError.hide();
+      }
+    })();
 
     function isCategorySelected() {
       return categoryIdInputArray.length !== 0;
     }
 
-    function manageShowError() {
-      if (!isCategorySelected()) {
-        // alert(ERROR);
-        showMessage();
-      } else {
-        $(".category-error").hide();
-      }
-    }
-
-    function showMessage() {
-      let categoryError = $(".category-error");
+    function showErrorMessage() {
       if (categoryError.length === 0) {
         let errorP = document.createElement("p");
         errorP.innerHTML = ERROR;
@@ -389,17 +402,45 @@ document.addEventListener("DOMContentLoaded", function() {
           categoryError.show();
         }
       }
-
     }
+
     return isCategorySelected();
   }
 
-  function manageValidationError(event) {
-    const validationErrors = $(".form-donation-error");
-    validationErrors.on(event,() => {
-      if (validationErrors.hidden) validationErrors.removeAttr("hidden")
-      else validationErrors.hide();
-    })
+  //Stem 2 - enter bags quantity
+  function validateBagsQuantity() {
+    const ERROR = "Wprowadź ilość worków";
+    let bagsNumbError = $(".bags_number-error");
+    const $bagsNumbVal = $("#quantityInput").val();
+
+    (function() {
+      if (!isBagsNumbEntered()) {
+        showErrorMessage();
+      } else {
+        bagsNumbError.hide();
+      }
+    })();
+
+    function isBagsNumbEntered() {
+      return $bagsNumbVal !== "" && typeof $bagsNumbVal !== 'undefined' &&
+          $bagsNumbVal > 0;
+    }
+
+    function showErrorMessage() {
+      if (bagsNumbError.length === 0) {
+        let errorP = document.createElement("p");
+        errorP.innerHTML = ERROR;
+        errorP.classList.add("form-donation-error");
+        errorP.classList.add("bags_number-error")
+        $('.form--steps-counter').append(errorP);
+      } else {
+        if (bagsNumbError.is(":hidden")) {
+          bagsNumbError.show();
+        }
+      }
+    }
+
+    return isBagsNumbEntered();
   }
 
 });
