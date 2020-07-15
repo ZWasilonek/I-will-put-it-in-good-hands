@@ -95,7 +95,7 @@
             <div class="form-group form-group--inline">
               <label>
                 Liczba 60l worków:
-                <form:input path="bagsQuantity" type="number" step="1" min="1" id="quantityInput" required="required"/>
+                <form:input path="bagsQuantity" type="number" step="1" min="1" max="100" id="quantityInput" required="required"/>
               </label>
             </div>
 
@@ -147,7 +147,7 @@
 
                 <div class="form-group form-group--inline">
                   <label>
-                    Kod pocztowy <form:input path="shippingAddress.zipCode" type="text" id="zipCodeInput" inputmode="numeric" pattern="^(?(^00000(|-0000))|(\d{5}(|-\d{4})))$" required="required"/>
+                    Kod pocztowy <form:input path="shippingAddress.zipCode" type="text" id="zipCodeInput" required="required"/>
                   </label>
                 </div>
 
