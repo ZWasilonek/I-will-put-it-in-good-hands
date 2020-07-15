@@ -3,3 +3,6 @@
 ## Technologie
  * Java
  * JavaScript
+ * JQuery
+ * CSS
+ * HTML
