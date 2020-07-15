@@ -1921,3 +1921,8 @@ a.showUserContent {
 .form-donation-error {
   color: red;
 }
+
+/* form.jsp 4-step address and date */
+.placeholder-error::placeholder {
+  font-size: 11px;
+}
