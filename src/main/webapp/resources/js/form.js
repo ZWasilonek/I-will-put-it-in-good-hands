@@ -195,6 +195,16 @@ document.addEventListener("DOMContentLoaded", function() {
         }
       }
 
+      const checkDeliveryDetails = () => {
+        let isDeliveryDetailsCorrect = validateDeliveryDetails();
+        if (isDeliveryDetailsCorrect) {
+          setActive();
+        } else {
+          this.currentStep--;
+          this.$step.innerText = this.currentStep;
+        }
+      }
+
       switch (this.currentStep) {
         case 1:
           setActive();
@@ -209,7 +219,7 @@ document.addEventListener("DOMContentLoaded", function() {
           checkFoundation();
           break;
         case 5:
-          setActive();
+          checkDeliveryDetails();
           break;
       }
     }
@@ -285,7 +295,7 @@ document.addEventListener("DOMContentLoaded", function() {
   /** STEP 2 - ENTER QUANTITY OF BAGS **/
   function displayBagsQuantity() {
     const $bagsNumbInput = $("#quantityInput");
-    $bagsNumbInput.val(1);
+    // $bagsNumbInput.val(1);
     $bagsNumbInput.on('change', function () {
       const $classBagsNum = $("#bagsNumber");
       let quantityVal = $(this).val();
@@ -344,22 +354,27 @@ document.addEventListener("DOMContentLoaded", function() {
    * Update form front-end
    * Show pickup address.
    */
-  $("#streetInput").on("change paste keyup", function() {
+  const $streetInput = $("#streetInput");
+  const $cityInput = $("#cityInput");
+  const $zipCodeInput = $("#zipCodeInput");
+  const $phoneInput = $("#phoneInput");
+
+  $streetInput.on("change paste keyup", function() {
     let streetValue = $(this).val();
     $("#streetLi").text(streetValue);
   });
 
-  $("#cityInput").on("change paste keyup", function() {
+  $cityInput.on("change paste keyup", function() {
     let cityVal = $(this).val();
     $("#cityLi").text(cityVal);
   });
 
-  $("#zipCodeInput").on("change paste keyup", function() {
+  $zipCodeInput.on("change paste keyup", function() {
     let zipCodeVal = $(this).val();
     $("#zipCodeLi").text(zipCodeVal);
   });
 
-  $("#phoneInput").on("change paste keyup", function() {
+  $phoneInput.on("change paste keyup", function() {
     let phoneVal = $(this).val();
     $("#phoneLi").text(phoneVal);
   });
@@ -368,17 +383,21 @@ document.addEventListener("DOMContentLoaded", function() {
    * Update form front-end
    * Show pickup date.
    */
-  $("#dateInput").on("change paste keyup", function() {
+  const $dateInput = $("#dateInput");
+  const $hourInput = $("#hourInput");
+  const $commentsTextarea = $("#commentsTextarea");
+
+  $dateInput.on("change paste keyup", function() {
     let dateVal = $(this).val();
     $("#dateLi").text(dateVal);
   });
 
-  $("#hourInput").on("change paste keyup", function() {
+  $hourInput.on("change paste keyup", function() {
     let hourVal = $(this).val();
     $("#hourLi").text(hourVal);
   });
 
-  $("#commentsTextarea").on("change paste keyup", function() {
+  $commentsTextarea.on("change paste keyup", function() {
     let commentsVal = $(this).val();
     if (commentsVal !== '') {
       $("#commentsLi").text(commentsVal);
@@ -389,7 +408,7 @@ document.addEventListener("DOMContentLoaded", function() {
   //Step 1 - choose category
   function validateCategory() {
     const ERROR = "Musisz wybrać jakąś kategorię";
-    let categoryError = $(".category-error");
+    const categoryError = $(".category-error");
 
     (function() {
       if (!isCategorySelected()) {
@@ -423,7 +442,7 @@ document.addEventListener("DOMContentLoaded", function() {
   //Stem 2 - enter bags quantity
   function validateBagsQuantity() {
     const ERROR = "Wprowadź ilość worków";
-    let bagsNumbError = $(".bags_number-error");
+    const bagsNumbError = $(".bags_number-error");
     const $bagsNumbVal = $("#quantityInput").val();
 
     (function() {
@@ -458,7 +477,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   function validateFoundation() {
     const ERROR = "Wybierz jedną fundację";
-    let foundationError = $(".foundation-error");
+    const foundationError = $(".foundation-error");
 
     (function () {
       if (!isFoundationSelected()) {
@@ -486,6 +505,108 @@ document.addEventListener("DOMContentLoaded", function() {
       }
     }
     return isFoundationSelected();
+  }
+
+  function validateDeliveryDetails() {
+    const ERROR = "Wypełnij dokładnie informacje dotyczące adresu oraz terminu odbioru";
+    const EMPTY_ERROR = "pole nie może być puste";
+    const HAS_DIGITS_ERROR = "pole nie może zawierać cyfr";
+    const ZIPCODE_ERROR = "nieprawidłowy kod pocztowy";
+    const PHONE_ERROR = "nieprawidłowy numer telefonu"
+    const fieldsArray = [$streetInput, $cityInput, $zipCodeInput, $phoneInput,
+          $dateInput, $hourInput];
+
+    const deliveryDetailsError = $(".delivery_details-error");
+
+    (function () {
+      if (!isDeliveryDetailsCorrect()) {
+        showErrorMessage();
+      } else {
+        deliveryDetailsError.hide();
+      }
+    })();
+
+    function isDeliveryDetailsCorrect() {
+      return checkErrorsInFields();
+    }
+
+    function showErrorMessage() {
+      if (deliveryDetailsError.length === 0) {
+        let errorP = document.createElement("p");
+        errorP.innerHTML = ERROR;
+        errorP.classList.add("form-donation-error");
+        errorP.classList.add("delivery_details-error")
+        $('.form--steps-counter').append(errorP);
+      } else {
+        if (deliveryDetailsError.is(":hidden")) {
+          deliveryDetailsError.show();
+        }
+      }
+    }
+
+    function checkErrorsInFields() {
+      let isCorrect = checkEmptyFields(fieldsArray);
+      setSelectedError([$cityInput], HAS_DIGITS_ERROR,
+          function hasDigit($inputValue) {
+            const pattern = /\d+/g;
+            let hasDigit = pattern.test($inputValue);
+            isCorrect = hasDigit ? !isCorrect : isCorrect;
+            return hasDigit;
+          })
+      setSelectedError([$zipCodeInput], ZIPCODE_ERROR,
+          function matchingZipCode($inputVal) {
+            const patternZipCode = /[0-9]{2}-[0-9]{3}/g;
+            let isZipCodeMatching = !patternZipCode.test($inputVal);
+            isCorrect = isZipCodeMatching ? !isCorrect : isCorrect;
+            return isZipCodeMatching;
+          })
+      setSelectedError([$phoneInput], PHONE_ERROR,
+          function matchingPhone($inputVal) {
+            const pattern = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\\./0-9]*$/;
+            let isPhoneCorrect = !pattern.test($inputVal);
+            isCorrect = isPhoneCorrect ? !isCorrect : isCorrect;
+            return isPhoneCorrect;
+          })
+      return isCorrect;
+    }
+
+    function setSelectedError(fieldsArr, errorToDisplay, searchErrorFunction) {
+      fieldsArr.filter(field => {
+        const fieldVal = field.val().trim();
+        if (fieldVal !== "" && searchErrorFunction(fieldVal)) {
+          field.val("");
+          field.attr("placeholder", errorToDisplay).addClass("placeholder-error");
+          field.css("background-color", "#ffcccc");
+        } else if (isEmpty(fieldVal)){
+          field.attr("placeholder", EMPTY_ERROR).addClass("placeholder-error");
+          field.css("background-color", "#ffcccc");
+        } else {
+          field.css("background-color", "transparent");
+        }
+      })
+    }
+
+    function checkEmptyFields(fieldsArr) {
+      let areNotEmpty = true;
+      fieldsArr.filter(field => {
+        if (isEmpty(field.val())) {
+          field.val("");
+          field.attr("placeholder", EMPTY_ERROR).addClass("placeholder-error");
+          field.css("background-color", "#ffcccc");
+          areNotEmpty = false;
+        } else {
+          field.css("background-color", "transparent");
+        }
+      })
+      return areNotEmpty;
+    }
+
+    function isEmpty($inputValue) {
+      return $inputValue === "" || typeof $inputValue === "undefined" ||
+          $inputValue === null;
+    }
+
+    return isDeliveryDetailsCorrect();
   }
 
 });
