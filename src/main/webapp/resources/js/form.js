@@ -185,6 +185,16 @@ document.addEventListener("DOMContentLoaded", function() {
         }
       }
 
+      const checkFoundation = () => {
+        let isFoundationSelected = validateFoundation();
+        if (isFoundationSelected) {
+          setActive();
+        } else {
+          this.currentStep--;
+          this.$step.innerText = this.currentStep;
+        }
+      }
+
       switch (this.currentStep) {
         case 1:
           setActive();
@@ -196,7 +206,7 @@ document.addEventListener("DOMContentLoaded", function() {
           checkBagsQuantity();
           break;
         case 4:
-          setActive();
+          checkFoundation();
           break;
         case 5:
           setActive();
@@ -311,10 +321,13 @@ document.addEventListener("DOMContentLoaded", function() {
   institutionsNamesMap.set('3','Fundacji “Dla dzieci”');
   institutionsNamesMap.set('4','Fundacji “Bez domu”');
 
+  let selectedFoundation = null;
+
   $('.foundationNameInput').on('change', function() {
     const selectedInstitutionRadioId = $('input[class=foundationNameInput]:checked').val();
     for (let [key] of institutionsNamesMap) {
       if (selectedInstitutionRadioId === key) {
+        selectedFoundation = key;
         $(".foundationName").text(institutionsNamesMap.get(key));
         break;
       }
@@ -441,6 +454,38 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     return isBagsNumbEntered();
+  }
+
+  function validateFoundation() {
+    const ERROR = "Wybierz jedną fundację";
+    let foundationError = $(".foundation-error");
+
+    (function () {
+      if (!isFoundationSelected()) {
+        showErrorMessage();
+      } else {
+        foundationError.hide();
+      }
+    })();
+
+    function isFoundationSelected() {
+      return selectedFoundation !== null
+    }
+
+    function showErrorMessage() {
+      if (foundationError.length === 0) {
+        let errorP = document.createElement("p");
+        errorP.innerHTML = ERROR;
+        errorP.classList.add("form-donation-error");
+        errorP.classList.add("foundation-error")
+        $('.form--steps-counter').append(errorP);
+      } else {
+        if (foundationError.is(":hidden")) {
+          foundationError.show();
+        }
+      }
+    }
+    return isFoundationSelected();
   }
 
 });
