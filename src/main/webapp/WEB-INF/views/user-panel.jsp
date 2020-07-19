@@ -34,12 +34,12 @@
                                     <li>
                                         <span class="icon icon-bag"></span>
                                         <span class="summary--text">
-                                            <span id="quantityInput"><c:out value="${donation.bagsQuantity}"/></span>
-                                            <span id="bagsNumber"> x </span>
+                                            <span class="quantityBags"><c:out value="${donation.bagsQuantity}"/></span>
+                                            <span class="bags"> x </span>
 
                                             <c:forEach var="category" items="${donation.categories}" varStatus="status">
-                                                <span class="categoryIdInput" id="categoryName">
-                                                    <c:out value="${category.name}"/><c:if test="${not status.last}">, </c:if>
+                                                <span class="categoryName">
+                                                    <c:out value="${category.name}"/><c:if test="${not status.last}"><span>, </span></c:if>
                                                 </span>
                                             </c:forEach>
                                         </span>
@@ -62,7 +62,7 @@
                                 <div class="form-section--column">
                                     <h4>Adres odbioru:</h4>
                                     <ul>
-                                        <li><c:out value="${donation.shippingAddress.street}"/></li>
+                                        <li>ul. <c:out value="${donation.shippingAddress.street}"/></li>
                                         <li><c:out value="${donation.shippingAddress.city}"/></li>
                                         <li><c:out value="${donation.shippingAddress.zipCode}"/></li>
                                     </ul>
@@ -72,7 +72,7 @@
                                     <h4>Termin odbioru:</h4>
                                     <ul>
                                         <li><c:out value="${donation.shippingAddress.pickUpDate}"/></li>
-                                        <li><c:out value="${donation.shippingAddress.pickUpTime}"/></li>
+                                        <li>Godzina: <c:out value="${donation.shippingAddress.pickUpTime}"/></li>
                                         <li><c:out value="${donation.shippingAddress.pickUpComment}"/></li>
                                     </ul>
                                 </div>
