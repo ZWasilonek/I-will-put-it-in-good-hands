@@ -62,4 +62,9 @@ public class FacadeHomeServiceImpl implements FacadeHomeService {
         securityService.autoLogin(userDTO.getEmail(), userDTO.getConfirmPassword());
     }
 
+    @Override
+    public UserDTO findUserByEmail(String email) {
+        return userMapper.mapToDTO(userService.findByEmail(email));
+    }
+
 }
