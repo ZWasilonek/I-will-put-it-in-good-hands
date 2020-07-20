@@ -1,6 +1,8 @@
 package pl.coderslab.charity.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -48,6 +50,15 @@ public class HomeController {
         return facadeService.findAllDonations().size();
     }
 
+    @ModelAttribute("userSession")
+    public UserDTO getUserFromSession() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            String userEmail = ((UserDetails) principal).getUsername();
+            return facadeService.findUserByEmail(userEmail);
+        }
+        return null;
+    }
 
     //------------------REGISTRATION---------------------
     @GetMapping("/register")
