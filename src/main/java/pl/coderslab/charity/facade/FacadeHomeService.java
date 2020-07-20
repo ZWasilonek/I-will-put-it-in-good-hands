@@ -13,5 +13,6 @@ public interface FacadeHomeService {
     Integer getTotalBags();
     Set<DonationDTO> findAllDonations();
     void register(UserDTO userDTO, BindingResult bindingResult);
+    UserDTO findUserByEmail(String email);
 
 }
