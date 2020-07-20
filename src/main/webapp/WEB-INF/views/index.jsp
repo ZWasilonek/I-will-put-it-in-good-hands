@@ -14,14 +14,7 @@
     <body>
 
         <header class="header--main-page">
-            <nav class="container container--70">
-                <ul class="nav--actions">
-                    <li><a href="${contextPath}/login" class="btn btn--small btn--without-border">Zaloguj</a></li>
-                    <li><a href="${contextPath}/register" class="btn btn--small btn--highlighted">Załóż konto</a></li>
-                </ul>
-                <jsp:include page="/WEB-INF/views/fragment/header.jsp"/>
-            </nav>
-
+            <jsp:include page="/WEB-INF/views/fragment/header-log-and-reg.jsp"/>
             <div class="slogan container container--90">
                 <div class="slogan--item">
                     <h1>
