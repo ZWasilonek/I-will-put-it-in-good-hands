@@ -210,19 +210,19 @@
                 <div class="form-section--column">
                   <h4>Adres odbioru:</h4>
                   <ul>
-                    <li>Ulica: &nbsp;<span id="streetLi"></span></li>
-                    <li>Miasto: &nbsp;<span id="cityLi"></span></li>
-                    <li>Kod pocztowy: &nbsp;<span id="zipCodeLi"></span></li>
-                    <li>Telefon: &nbsp;<span id="phoneLi"></span></li>
+                    <li><span class="shipping-info">Ulica: &nbsp;</span><span id="streetLi"></span></li>
+                    <li><span class="shipping-info">Miasto: &nbsp;</span><span id="cityLi"></span></li>
+                    <li><span class="shipping-info">Kod pocztowy: &nbsp;</span><span id="zipCodeLi"></span></li>
+                    <li><span class="shipping-info">Telefon: &nbsp;</span><span id="phoneLi"></span></li>
                   </ul>
                 </div>
 
                 <div class="form-section--column">
                   <h4>Termin odbioru:</h4>
                   <ul>
-                    <li>Data: &nbsp;<span id="dateLi"></span></li>
-                    <li>Godzina: &nbsp;<span id="hourLi"></span></li>
-                    <li>Uwagi: &nbsp;<span id="commentsLi">Brak uwag</span></li>
+                    <li><span class="shipping-info">Data: &nbsp;</span><span id="dateLi"></span></li>
+                    <li><span class="shipping-info">Godzina: &nbsp;</span><span id="hourLi"></span></li>
+                    <li><span class="shipping-info">Uwagi: &nbsp;</span><span id="commentsLi">Brak uwag</span></li>
                   </ul>
                 </div>
               </div>
