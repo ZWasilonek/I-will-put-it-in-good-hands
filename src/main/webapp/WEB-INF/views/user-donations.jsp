@@ -58,7 +58,7 @@
                                 </ul>
                             </div>
 
-                            <div class="reception-section--columns">
+                            <div class="summary-shipping-info reception-section--columns">
                                 <div class="form-section--column">
                                     <h4>Adres odbioru:</h4>
                                     <ul>
@@ -123,17 +123,13 @@
                     <li id='userDonationsContentDiv-link' class="showUserContent" rel="userDonationsContentDiv">
                         <div><em><br></em>
                             <span>
-                                Twoje zbiórki
+                                <a href="#">Twoje zbiórki</a>
                             </span>
                         </div>
                     </li>
                     <li>
                         <div><em><c:out value="${userInstitutions.size()}"/></em>
-                            <span>
-                                <a href="#userInstitutionsContentDiv" id="userInstitutionsContentDiv-link" class="showUserContent" rel='userInstitutionsContentDiv'>
-                                Wybrane fundacje
-                                </a>
-                            </span>
+                            <span>Wybrane fundacje</span>
                         </div>
                     </li>
                     <li>
