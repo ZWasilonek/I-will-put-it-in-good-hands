@@ -513,6 +513,8 @@ document.addEventListener("DOMContentLoaded", function() {
     const HAS_DIGITS_ERROR = "pole nie może zawierać cyfr";
     const ZIPCODE_ERROR = "nieprawidłowy kod pocztowy";
     const PHONE_ERROR = "nieprawidłowy numer telefonu"
+    const PAST_DATE_ERROR = "Wprowadzona data jest w podana czasie przeszłym." +
+        " Taka operacja jest stosowana dla archiwizacji."
     const fieldsArray = [$streetInput, $cityInput, $zipCodeInput, $phoneInput,
           $dateInput, $hourInput];
 
@@ -546,6 +548,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function checkErrorsInFields() {
       let isCorrect = checkEmptyFields(fieldsArray);
+      checkDate($dateInput.val())
       setSelectedError([$cityInput], HAS_DIGITS_ERROR,
           function hasDigit($inputValue) {
             const pattern = /\d+/g;
@@ -599,6 +602,14 @@ document.addEventListener("DOMContentLoaded", function() {
         }
       })
       return areNotEmpty;
+    }
+
+    function checkDate(date) {
+      const currentDate = new Date();
+      const selectedDate = Date.parse(date);
+      if(typeof selectedDate !== "undefined" && selectedDate-currentDate < 0) {
+        alert(PAST_DATE_ERROR);
+      }
     }
 
     function isEmpty($inputValue) {
