@@ -1926,3 +1926,9 @@ a.showUserContent {
 .placeholder-error::placeholder {
   font-size: 11px;
 }
+
+/* form.jsp summary */
+.shipping-info {
+  color: #1c3702;
+  font-weight: 300;
+}
