@@ -409,8 +409,8 @@ body {
 
 /* line 14, scss/modules/_base.scss */
 a {
-  text-decoration: none;
-  color: #3c3c3c;
+  text-decoration: none !important;
+  color: #3c3c3c !important;
 }
 
 /* line 19, scss/modules/_base.scss */
