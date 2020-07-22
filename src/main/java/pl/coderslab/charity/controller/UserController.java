@@ -28,8 +28,8 @@ public class UserController {
     }
 
     @GetMapping
-    public String displayUserPanel() {
-        return "user-panel";
+    public String displayUserDonations() {
+        return "user-donations";
     }
 
     @ModelAttribute("userSession")
