@@ -49,15 +49,21 @@ public class RegistrationValidation implements Validator {
         String enteredPassword = userDTO.getPassword();
         User userFromDatabase = userService.findByEmail(enteredEmail);
         if (userFromDatabase != null) {
-            if (userFromDatabase.getEmail().equals(enteredEmail)) {
+            if (userFromDatabase.getEmail().equals(enteredEmail)
+                    && !userFromDatabase.getId().equals(userDTO.getId())
+                    && userDTO.isEnabled()
+                    ||
+                    userFromDatabase.getEmail().equals(enteredEmail)
+                    && userDTO.getId() == null
+                    && userFromDatabase.isEnabled()) {
                 errors.rejectValue("email", "Duplicated.userForm.Email");
             }
         }
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotBlank");
-//        if (!enteredPassword.equals("") && !enteredPassword.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\\\d)[a-zA-Z\\\\d]{8,20}$")) {
-//            errors.rejectValue("password", "Pattern.userForm.Password");
-//        }
+        if (!enteredPassword.equals("") && !enteredPassword.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,20}$")) {
+            errors.rejectValue("password", "Pattern.userForm.Password");
+        }
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "confirmPassword", "NotBlank");
         if (!enteredPassword.equals(userDTO.getConfirmPassword())) {
