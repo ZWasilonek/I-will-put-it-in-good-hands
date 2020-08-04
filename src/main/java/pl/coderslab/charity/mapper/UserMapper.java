@@ -29,9 +29,9 @@ public interface UserMapper {
             @Mapping(target = "email", source = "entity.email"),
             @Mapping(target = "authorities", source = "entity.authorities"),
     })
+
     UserDTO mapToDTO(User entity);
 
     Set<UserDTO> setUsersToDTO(Set<User> entities);
-    Set<User> setUsersToEntities(Set<UserDTO> dtoSet);
 
 }
