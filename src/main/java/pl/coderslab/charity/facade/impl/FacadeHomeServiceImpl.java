@@ -2,7 +2,6 @@ package pl.coderslab.charity.facade.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.BindingResult;
 import pl.coderslab.charity.dto.DonationDTO;
 import pl.coderslab.charity.dto.InstitutionDTO;
 import pl.coderslab.charity.dto.UserDTO;
@@ -57,7 +56,7 @@ public class FacadeHomeServiceImpl implements FacadeHomeService {
     }
 
     @Override
-    public void register(UserDTO userDTO, BindingResult bindingResult) {
+    public void register(UserDTO userDTO) {
         userService.saveUser(userMapper.mapToEntity(userDTO));
         securityService.autoLogin(userDTO.getEmail(), userDTO.getConfirmPassword());
     }
