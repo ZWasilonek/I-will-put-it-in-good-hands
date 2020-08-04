@@ -3,8 +3,7 @@
   Aplikacja dla tych, którzy chcą przekazać darowiznę dla wybranej fundacji w postaci zabawek, ubrań w różnym stanie,
    książek i innych.
    
-   <img src=""/>
-   <img src=""/>
+<img src="https://user-images.githubusercontent.com/59224048/89333435-3d970500-d695-11ea-9ea8-55b078a773b2.png"/>
    
 ## Technologie
 
@@ -54,8 +53,8 @@
  
  ## Spring security 
  
- Aby ułatwić prezentację projektu, w bazie danych znajdują się już użytkownicy.
-  Możesz skorzystać z ich kont aby przyjrzeć sie aplikacji. 
+ Aby ułatwić prezentację projektu, w bazie danych charity_donation.sql, znajdującej się w katalogu src/main/resources/META-INF
+  znajdują się już użytkownicy. Możesz skorzystać z ich kont aby przyjrzeć sie aplikacji. 
   
   ```
   Użytkownik Zofia Wasilonek z rolą ADMIN oraz USER:
