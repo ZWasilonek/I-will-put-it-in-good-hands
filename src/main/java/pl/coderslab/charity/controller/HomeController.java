@@ -72,7 +72,7 @@ public class HomeController {
                                     BindingResult bindingResult) {
         validator.validate(userDTO, bindingResult);
         if (bindingResult.hasErrors()) return "register";
-        facadeService.register(userDTO, bindingResult);
+        facadeService.register(userDTO);
         return "redirect:/donation";
     }
 
