@@ -32,14 +32,36 @@ public class UserServiceImpl extends GenericServiceImpl<User, UserRepository> im
     }
 
     @Override
-    public void saveUser(User user) {
+    public User saveUser(User user) {
         User newUser = new User();
         newUser.setEmail(user.getEmail());
         newUser.setPassword(passwordEncoder.encode(user.getPassword()));
         newUser.setFirstName(user.getFirstName().toUpperCase());
         newUser.setLastName(user.getLastName().toUpperCase());
+        newUser.setEnabled(true);
         repository.save(newUser);
         setRole(newUser);
+        return newUser;
+    }
+
+    @Override
+    public User updateUser(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setFirstName(user.getFirstName().toUpperCase());
+        user.setLastName(user.getLastName().toUpperCase());
+        repository.save(user);
+        return user;
+    }
+
+    @Override
+    public boolean disableUser(Long userId) {
+        Optional<User> foundedUser = repository.findById(userId);
+        if (foundedUser.isPresent()) {
+            foundedUser.get().setEnabled(false);
+            repository.save(foundedUser.get());
+            return true;
+        }
+        return false;
     }
 
     @Override
