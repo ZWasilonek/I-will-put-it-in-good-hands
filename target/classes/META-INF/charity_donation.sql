@@ -3,8 +3,8 @@
 INSERT INTO `authority`(`name`, `id`) VALUES ('ROLE_ADMIN', 1);
 INSERT INTO `authority`(`name`, `id`) VALUES ('ROLE_USER', 2);
 
-INSERT INTO users VALUES (1, 'admin@gmail.com', 'ZOFIA', 'WASILONEK', '$2a$10$1FchTNOoF6gS9v.s7GkNmujcqscQkMvSkWgi3..vEv9Z9l3X49BNq');
-INSERT INTO users VALUES (null, 'jan@o2.pl', 'JAN', 'KOWALSKI', '$2a$10$wtD.roO8R7Cs.X/IRAdnmOfZ6epe1nUmzkHDxZurH4q4DFadAQSOy');
+INSERT INTO users VALUES (1, 'admin@gmail.com', 'ZOFIA', true, 'WASILONEK', '$2a$10$1FchTNOoF6gS9v.s7GkNmujcqscQkMvSkWgi3..vEv9Z9l3X49BNq');
+INSERT INTO users VALUES (null, 'jan@o2.pl', 'JAN', true, 'KOWALSKI', '$2a$10$wtD.roO8R7Cs.X/IRAdnmOfZ6epe1nUmzkHDxZurH4q4DFadAQSOy');
 
 INSERT INTO `user_authority` VALUES (1,1);
 INSERT INTO `user_authority` VALUES (1,2);
