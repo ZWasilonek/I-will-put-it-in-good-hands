@@ -6,7 +6,9 @@ import pl.coderslab.charity.service.generic.GenericService;
 public interface UserService extends GenericService<User> {
 
     User findByEmail(String email);
-    void saveUser(User user);
+    User saveUser(User user);
     void setRole(User user);
+    User updateUser(User user);
+    boolean disableUser(Long userId);
 
 }
