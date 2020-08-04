@@ -44,13 +44,18 @@ public class FacadeUserServiceImpl implements FacadeUserService {
     }
 
     @Override
+    public boolean deactivateTheAccountByUserId(Long userId) {
+        return userService.disableUser(userId);
+    }
+
+    @Override
     public UserDTO create(UserDTO dto) {
-        return userMapper.mapToDTO(userService.create(userMapper.mapToEntity(dto)));
+        return userMapper.mapToDTO(userService.saveUser(userMapper.mapToEntity(dto)));
     }
 
     @Override
     public UserDTO update(UserDTO dto) {
-        return userMapper.mapToDTO(userService.update(userMapper.mapToEntity(dto)));
+        return userMapper.mapToDTO(userService.updateUser(userMapper.mapToEntity(dto)));
     }
 
     @Override
