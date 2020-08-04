@@ -17,6 +17,7 @@ public class UserDTO {
     private String email;
     private String password;
     private String confirmPassword;
+    private boolean isEnabled;
     private Set<AuthorityDTO> authorities;
     private Set<DonationDTO> donations;
 
