@@ -44,7 +44,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                     "/resources/**")
             .permitAll()
                 .antMatchers("/donation/**").hasAnyRole("USER", "ADMIN")
-                .antMatchers("/user").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/user/**").hasAnyRole("USER", "ADMIN")
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -89,6 +89,5 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public AuthenticationManager customAuthenticationManager() throws Exception {
         return authenticationManager();
     }
-//    keycloak;
 
 }
