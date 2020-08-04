@@ -9,5 +9,6 @@ public interface FacadeUserService extends GenericServiceFacade<UserDTO> {
     UserDTO findUserByEmail(String userEmail);
     Integer getBagsSumByUserId(Long id);
     Set<DonationDTO> getAllDonationsByUserId(Long id);
+    boolean deactivateTheAccountByUserId(Long userId);
 
 }
