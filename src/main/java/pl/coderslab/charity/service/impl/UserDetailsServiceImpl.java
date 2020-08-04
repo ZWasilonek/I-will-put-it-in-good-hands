@@ -27,15 +27,15 @@ public class UserDetailsServiceImpl extends GenericServiceImpl<User, UserReposit
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = repository.findByEmail(email);
 
-        if (user == null) {
+        if (user != null && user.isEnabled()) {
+            Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
+            for (Authority role : user.getAuthorities()){
+                grantedAuthorities.add(new SimpleGrantedAuthority(role.getName().toString()));
+            }
+            return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), grantedAuthorities);
+        } else {
             throw new UsernameNotFoundException("User not found.");
         }
-
-        Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-        for (Authority role : user.getAuthorities()){
-            grantedAuthorities.add(new SimpleGrantedAuthority(role.getName().toString()));
-        }
-        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), grantedAuthorities);
     }
 
 }
