@@ -513,8 +513,8 @@ document.addEventListener("DOMContentLoaded", function() {
     const HAS_DIGITS_ERROR = "pole nie może zawierać cyfr";
     const ZIPCODE_ERROR = "nieprawidłowy kod pocztowy";
     const PHONE_ERROR = "nieprawidłowy numer telefonu"
-    const PAST_DATE_ERROR = "Wprowadzona data jest w podana czasie przeszłym." +
-        " Taka operacja jest stosowana dla archiwizacji."
+    const PAST_DATE_ERROR = "Wprowadzona data jest podana w czasie przeszłym." +
+        " Taka operacja jest stosowana w celach archiwizacji zrealizowanej darowizny."
     const fieldsArray = [$streetInput, $cityInput, $zipCodeInput, $phoneInput,
           $dateInput, $hourInput];
 
