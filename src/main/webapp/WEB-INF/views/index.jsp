@@ -7,14 +7,14 @@
 <html lang="pl">
 
     <head>
-        <jsp:include page="/WEB-INF/views/fragment/head.jsp"/>
+        <jsp:include page="/WEB-INF/views/fragment/head.jspf"/>
         <title>Charity</title>
     </head>
 
     <body>
 
         <header class="header--main-page">
-            <jsp:include page="/WEB-INF/views/fragment/header-log-and-reg.jsp"/>
+            <jsp:include page="/WEB-INF/views/fragment/header-log-and-reg.jspf"/>
             <div class="slogan container container--90">
                 <div class="slogan--item">
                     <h1>
@@ -96,7 +96,6 @@
         <section class="help">
             <h2>Komu pomagamy?</h2>
 
-            <!-- SLIDE 1 -->
             <div class="help--slides active" data-id="1">
                 <p>W naszej bazie znajdziesz listę zweryfikowanych Fundacji, z którymi współpracujemy.
                     Możesz sprawdzić czym się zajmują.</p>
@@ -109,25 +108,12 @@
                                 <div class="subtitle">Cel i misja: <c:out value="${institution.description}"/></div>
                             </div>
                         </li>
-    <%--                    <c:forEach var="institution" items="${institutions}" varStatus="counter" begin="0" end="2">--%>
-    <%--                    <li class="institution-list-item">--%>
-    <%--                        <div class="col">--%>
-    <%--                            <div class="title"><c:out value="${institutions.get(counter).name}"/></div>--%>
-    <%--                            <div class="subtitle">Cel i misja: <c:out value="${institution.description}"/></div>--%>
-    <%--                        </div>--%>
-    <%--                    </li>--%>
-    <%--                    <li class="institution-list-item">--%>
-    <%--                        <div class="col">--%>
-    <%--                            <div class="title"><c:out value="${institutions.get(counter + 1).name}"/></div>--%>
-    <%--                            <div class="subtitle">Cel i misja: <c:out value="${institution.description}"/></div>--%>
-    <%--                        </div>--%>
-    <%--                    </li>--%>
                     </c:forEach>
                 </ul>
             </div>
         </section>
 
-        <jsp:include page="/WEB-INF/views/fragment/footer.jsp"/>
+        <jsp:include page="/WEB-INF/views/fragment/footer.jspf"/>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
