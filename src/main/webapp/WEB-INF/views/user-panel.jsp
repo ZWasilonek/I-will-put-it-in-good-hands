@@ -6,12 +6,12 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <html>
     <head>
-        <jsp:include page="/WEB-INF/views/fragment/head.jsp"/>
+        <jsp:include page="/WEB-INF/views/fragment/head.jspf"/>
         <title>Panel użytkownika</title>
     </head>
 <body>
     <div>
-        <jsp:include page="/WEB-INF/views/fragment/header-log-and-reg.jsp"/>
+        <jsp:include page="/WEB-INF/views/fragment/header-log-and-reg.jspf"/>
 
         <section class="login-page">
             <h2>Twoje dane</h2>
@@ -64,7 +64,7 @@
             </form:form>
         </section>
 
-        <jsp:include page="/WEB-INF/views/fragment/footer.jsp"/>
+        <jsp:include page="/WEB-INF/views/fragment/footer.jspf"/>
         <script src="<c:url value="/resources/js/user-edit-form.js"/>"></script>
     </div>
 </body>
