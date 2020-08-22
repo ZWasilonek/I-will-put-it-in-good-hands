@@ -8,13 +8,13 @@
 <html lang="pl">
 
     <head>
-        <jsp:include page="/WEB-INF/views/fragment/head.jsp"/>
+        <jsp:include page="/WEB-INF/views/fragment/head.jspf"/>
         <title>Sign In</title>
     </head>
 
     <body>
 
-        <jsp:include page="/WEB-INF/views/fragment/header-log-and-reg.jsp"/>
+        <jsp:include page="/WEB-INF/views/fragment/header-log-and-reg.jspf"/>
 
         <section class="login-page">
             <h2>Zaloguj się</h2>
@@ -42,7 +42,7 @@
             </form:form>
         </section>
 
-        <jsp:include page="/WEB-INF/views/fragment/footer.jsp"/>
+        <jsp:include page="/WEB-INF/views/fragment/footer.jspf"/>
 
     </body>
 </html>
