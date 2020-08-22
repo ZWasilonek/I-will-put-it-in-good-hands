@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="pl">
   <head>
-    <jsp:include page="/WEB-INF/views/fragment/head.jsp"/>
+    <jsp:include page="/WEB-INF/views/fragment/head.jspf"/>
     <title>Potwierdzenie wysłania formularza</title>
   </head>
 
@@ -12,7 +12,7 @@
 
     <header class="header--form-page">
 
-      <jsp:include page="/WEB-INF/views/fragment/nav-for-logged.jsp"/>
+      <jsp:include page="/WEB-INF/views/fragment/nav-for-logged.jspf"/>
 
       <div class="slogan container container--90">
           <h2>
@@ -22,7 +22,7 @@
       </div>
     </header>
 
-    <jsp:include page="/WEB-INF/views/fragment/footer.jsp"/>
+    <jsp:include page="/WEB-INF/views/fragment/footer.jspf"/>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
