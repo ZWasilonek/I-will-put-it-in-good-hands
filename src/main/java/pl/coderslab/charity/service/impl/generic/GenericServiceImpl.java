@@ -68,7 +68,7 @@ public abstract class GenericServiceImpl<T,R extends JpaRepository<T, Long>> imp
     @Override
     public boolean removeById(Long id) {
         repository.findById(id)
-                .ifPresent(item -> repository.delete(item));
+                .ifPresent(item -> repository.deleteById(id));
         return true;
     }
 
