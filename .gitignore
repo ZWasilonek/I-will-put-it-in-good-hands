@@ -24,5 +24,4 @@ hs_err_pid*
 /src/main/resources/application.properties
 .*idea
 charity.iml
-target/generated-sources/
-target/generated-test-sources/
+target
