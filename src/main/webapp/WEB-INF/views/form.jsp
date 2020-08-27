@@ -8,14 +8,14 @@
 <html lang="pl">
 
   <head>
-    <jsp:include page="/WEB-INF/views/fragment/head.jspf"/>
+    <%@include file="/WEB-INF/views/fragment/head.jspf"%>
     <title>Donation form</title>
   </head>
 
   <body>
     <header class="header--form-page">
 
-      <jsp:include page="/WEB-INF/views/fragment/nav-for-logged.jspf"/>
+      <jsp:include page="/WEB-INF/views/fragment/nav-for-logged.jsp"/>
 
       <div class="slogan container container--90">
         <div class="slogan--item">
@@ -237,7 +237,7 @@
       </div>
     </section>
 
-    <jsp:include page="/WEB-INF/views/fragment/footer.jspf"/>
+    <%@include file="/WEB-INF/views/fragment/footer.jspf"%>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="<c:url value="/resources/js/form.js"/>"></script>

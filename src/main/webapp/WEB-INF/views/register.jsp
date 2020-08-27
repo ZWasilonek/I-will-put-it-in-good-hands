@@ -6,12 +6,12 @@
 <!DOCTYPE html>
 <html lang="pl">
   <head>
-    <jsp:include page="/WEB-INF/views/fragment/head.jspf"/>
+    <%@include file="/WEB-INF/views/fragment/head.jspf"%>
     <title>Sign Up</title>
   </head>
   <body>
 
-    <jsp:include page="/WEB-INF/views/fragment/header-log-and-reg.jspf"/>
+    <jsp:include page="/WEB-INF/views/fragment/header-log-and-reg.jsp"/>
 
     <section class="login-page">
       <h2>Załóż konto</h2>
@@ -60,7 +60,7 @@
       </form:form>
     </section>
 
-    <jsp:include page="/WEB-INF/views/fragment/footer.jspf"/>
+    <%@include file="/WEB-INF/views/fragment/footer.jspf"%>
 
   </body>
 </html>

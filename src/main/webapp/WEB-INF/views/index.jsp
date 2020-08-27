@@ -7,14 +7,14 @@
 <html lang="pl">
 
     <head>
-        <jsp:include page="/WEB-INF/views/fragment/head.jspf"/>
+        <%@include file="/WEB-INF/views/fragment/head.jspf"%>
         <title>Charity</title>
     </head>
 
     <body>
 
         <header class="header--main-page">
-            <jsp:include page="/WEB-INF/views/fragment/header-log-and-reg.jspf"/>
+            <jsp:include page="/WEB-INF/views/fragment/header-log-and-reg.jsp"/>
             <div class="slogan container container--90">
                 <div class="slogan--item">
                     <h1>
@@ -113,7 +113,7 @@
             </div>
         </section>
 
-        <jsp:include page="/WEB-INF/views/fragment/footer.jspf"/>
+        <%@include file="/WEB-INF/views/fragment/footer.jspf"%>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
