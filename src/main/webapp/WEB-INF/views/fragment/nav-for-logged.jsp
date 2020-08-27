@@ -14,5 +14,5 @@
         </li>
     </ul>
     <c:set var="userPanel" value="true" scope="session"/>
-    <jsp:include page="/WEB-INF/views/fragment/header.jspf"/>
+    <jsp:include page="/WEB-INF/views/fragment/header.jsp"/>
 </nav>

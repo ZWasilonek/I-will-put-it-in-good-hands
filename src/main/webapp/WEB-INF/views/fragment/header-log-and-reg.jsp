@@ -16,7 +16,7 @@
                         </ul>
                     </li>
                 </ul>
-                <jsp:include page="/WEB-INF/views/fragment/header.jspf"/>
+                <jsp:include page="/WEB-INF/views/fragment/header.jsp"/>
             </nav>
         </c:when>
         <c:otherwise>
@@ -25,7 +25,7 @@
                 <li><a href="${contextPath}/login" class="btn btn--small btn--without-border">Zaloguj</a></li>
                 <li><a href="${contextPath}/register" class="btn btn--small btn--highlighted">Załóż konto</a></li>
             </ul>
-            <jsp:include page="/WEB-INF/views/fragment/header.jspf"/>
+            <jsp:include page="/WEB-INF/views/fragment/header.jsp"/>
         </nav>
         </c:otherwise>
     </c:choose>
