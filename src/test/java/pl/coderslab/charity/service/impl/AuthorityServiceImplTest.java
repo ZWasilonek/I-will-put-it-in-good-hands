@@ -1,5 +1,6 @@
 package pl.coderslab.charity.service.impl;
 
+import org.hibernate.service.spi.ServiceException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,9 +17,7 @@ import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.BDDMockito.then;
-import static org.mockito.Mockito.*;
+import static org.mockito.BDDMockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class AuthorityServiceImplTest {
@@ -114,6 +113,92 @@ class AuthorityServiceImplTest {
         //then
         verify(repository, atMost(1)).findByName(AuthorityType.ROLE_ADMIN);
         verify(repository, times(2)).findByName(AuthorityType.ROLE_USER);
+    }
+
+    @Test
+    final void testCreateAuthorityBDDThrows() {
+        String errorMessage = "Cannot create item";
+        RuntimeException exception = new RuntimeException(errorMessage);
+        willThrow(exception).given(repository).save(any());
+
+        assertThrows(RuntimeException.class, () -> repository.save(new Authority()));
+
+        then(repository).should().save(any());
+        assertThat(exception.getMessage()).isEqualTo(errorMessage);
+    }
+
+    @Test
+    final void testFindAuthorityByIdThrows() {
+        String errorMessage = "Cannot find object with id 10";
+        ServiceException exception = new ServiceException(errorMessage);
+        given(repository.findById(10L)).willThrow(exception);
+
+        assertThrows(ServiceException.class, () -> service.findById(10L));
+
+        then(repository).should().findById(10L);
+        assertThat(exception.getMessage()).isEqualTo(errorMessage);
+    }
+
+    @Test
+    final void testFindAllAuthoritiesBDDThrows() {
+        String errorMessage = "Cannot find any objects";
+        RuntimeException exception = new RuntimeException(errorMessage);
+        willThrow(exception).given(repository).findAll();
+
+        assertThrows(RuntimeException.class, () -> service.findAll());
+
+        then(repository).should().findAll();
+        assertThat(exception.getMessage()).isEqualTo(errorMessage);
+    }
+
+    @Test
+    final void testUpdateAuthorityBDDThrows() {
+        String errorMessage = "Cannot find item to update";
+        ServiceException exception = new ServiceException(errorMessage);
+        willThrow(exception).given(repository).save(any());
+
+        assertThrows(ServiceException.class, () -> repository.save(new Authority()));
+
+        then(repository).should().save(any());
+        assertThat(exception.getMessage()).isEqualTo(errorMessage);
+    }
+
+    @Test
+    final void testFindByNameAuthorityDoThrow() {
+        String errorMessage = "Cannot find objects";
+        RuntimeException exception = new RuntimeException(errorMessage);
+        doThrow(exception).when(repository).findByName(any());
+
+        assertThrows(RuntimeException.class, () -> service.findByName(AuthorityType.ROLE_ADMIN));
+
+        verify(repository).findByName(any());
+        assertThat(exception.getMessage()).isEqualTo(errorMessage);
+    }
+
+
+    @Test
+    final void testRemoveAuthorityBDDThrows() {
+        String errorMessage = "Cannot remove givenAuthority";
+        RuntimeException exception = new RuntimeException(errorMessage);
+        willThrow(exception).given(repository).delete(any());
+
+        assertThrows(RuntimeException.class, () -> repository.delete(new Authority()));
+
+        then(repository).should().delete(any());
+        assertThat(exception.getMessage()).isEqualTo(errorMessage);
+    }
+
+    @Test
+    final void testRemoveAuthorityByIdBDDThrows() {
+        long givenID = 10L;
+        String errorMessage = "Cannot remove Authority with id " + givenID;
+        RuntimeException exception = new RuntimeException(errorMessage);
+        willThrow(exception).given(repository).deleteById(anyLong());
+
+        assertThrows(RuntimeException.class, () -> repository.deleteById(givenID));
+
+        then(repository).should().deleteById(anyLong());
+        assertThat(exception.getMessage()).isEqualTo(errorMessage);
     }
 
 }
