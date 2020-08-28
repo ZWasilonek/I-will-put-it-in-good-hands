@@ -1,5 +1,6 @@
 package pl.coderslab.charity.service.impl;
 
+import org.hibernate.service.spi.ServiceException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,14 +13,15 @@ import pl.coderslab.charity.repository.DonationRepository;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.BDDMockito.then;
+import static org.mockito.BDDMockito.*;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.when;
 
@@ -131,23 +133,59 @@ class DonationServiceImplTest {
     }
 
     @Test
-    void update() {
+    final void testUpdateDonation() {
+        //given
+        given(donationRepository.findById(anyLong())).willReturn(Optional.ofNullable(donation));
+        donation.setBagsQuantity(20);
+        //when
+        donationService.update(donation);
+        //then
+        then(donationRepository).should().save(any(Donation.class));
+        assertThat(20).isEqualTo(donation.getBagsQuantity());
     }
 
     @Test
-    void findAll() {
+    final void testFindAllDonations() {
+        //given
+        when(donationRepository.findAll()).thenReturn(List.of(donation));
+        //when
+        Set<Donation> allDonations = donationService.findAll();
+        //then
+        then(donationRepository).should().findAll();
+        assertThat(allDonations).hasSize(1);
     }
 
     @Test
-    void testFindAll() {
+    final void testRemoveDonations() {
+        //given
+        given(donationRepository.findById(anyLong())).willReturn(Optional.ofNullable(donation));
+        //when
+        boolean isDonationRemoved = donationService.remove(donation);
+        //then
+        then(donationRepository).should().delete(any(Donation.class));
+        assertThat(isDonationRemoved).isEqualTo(true);
     }
 
     @Test
-    void remove() {
+    final void testRemoveDonationById() {
+        //given
+        when(donationRepository.findById(anyLong())).thenReturn(Optional.ofNullable(donation));
+        //then
+        boolean isDonationRemoved = donationService.removeById(donation.getId());
+        //then
+        then(donationRepository).should().deleteById(anyLong());
+        assertThat(isDonationRemoved).isEqualTo(true);
     }
 
     @Test
-    void removeById() {
+    final void testFindDonationByIdBDDThrows() {
+        long givenID = 10L;
+        String errorMessage = "Cannot find donation by id " + givenID;
+        ServiceException exception = new ServiceException(errorMessage);
+        willThrow(exception).given(donationRepository).findById(givenID);
+
+        assertThrows(ServiceException.class, () -> donationService.findById(givenID));
+        assertThat(exception.getMessage()).isEqualTo(errorMessage);
     }
 
 }
