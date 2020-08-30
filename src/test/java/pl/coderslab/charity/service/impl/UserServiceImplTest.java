@@ -4,11 +4,16 @@ import org.hibernate.service.spi.ServiceException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import pl.coderslab.charity.entity.Authority;
 import pl.coderslab.charity.entity.User;
+import pl.coderslab.charity.entity.generic.AuthorityType;
+import pl.coderslab.charity.repository.AuthorityRepository;
 import pl.coderslab.charity.repository.UserRepository;
 
 import java.util.List;
@@ -25,10 +30,14 @@ class UserServiceImplTest {
 
     @Mock
     UserRepository userRepository;
+    @Mock
+    AuthorityRepository authorityRepository;
     @InjectMocks
     UserServiceImpl userService;
     @InjectMocks
     BCryptPasswordEncoder passwordEncoder;
+    @Captor
+    ArgumentCaptor<String> emailCaptor;
 
     private User user;
 
@@ -55,12 +64,13 @@ class UserServiceImplTest {
 
     @Test
     final void testFindUserById() {
-        given(userRepository.findById(anyLong())).willReturn(Optional.ofNullable(user));
+        final ArgumentCaptor<Long> idCaptor = ArgumentCaptor.forClass(Long.class);
+        given(userRepository.findById(idCaptor.capture())).willReturn(Optional.ofNullable(user));
 
-        User foundedUser = userService.findById(2L);
+        User foundedUser = userService.findById(user.getId());
 
         then(userRepository).should().findById(anyLong());
-        assertThat(user.getId()).isEqualTo(foundedUser.getId());
+        assertThat(idCaptor.getValue()).isEqualTo(foundedUser.getId());
     }
 
     @Test
@@ -107,27 +117,36 @@ class UserServiceImplTest {
 
     @Test
     final void testFindUserByEmail() {
-        given(userRepository.findByEmail(anyString())).willReturn(user);
+        given(userRepository.findByEmail(emailCaptor.capture())).willReturn(user);
 
-        User foundedUser = userService.findByEmail(user.getEmail());
+        User founded = userService.findByEmail(user.getEmail());
 
         then(userRepository).should().findByEmail(anyString());
-        assertThat(foundedUser).isEqualTo(user);
+        assertThat(emailCaptor.getValue()).isEqualTo(founded.getEmail());
     }
 
     @Test
     final void testDisableUser() {
         given(userRepository.findById(anyLong())).willReturn(Optional.ofNullable(user));
+
         boolean isUserDisabled = userService.disableUser(user.getId());
+
         then(userRepository).should().save(user);
         assertThat(isUserDisabled).isEqualTo(true);
     }
 
     @Test
     final void testSetRoleUser() {
-        given(userRepository.findById(anyLong())).willReturn(Optional.of(user));
-        userService.setRole(user);
+        //given
+        User admin = new User();
+        admin.setId(1L);
+        Authority roleAdmin = authorityRepository.findByName(AuthorityType.ROLE_ADMIN);
+        Authority roleUser = authorityRepository.findByName(AuthorityType.ROLE_USER);
+        //when
+        userService.setRole(this.user);
+        //then
         then(userRepository).should().save(any(User.class));
+        assertThat(user.getAuthorities()).hasSize(1);
     }
 
     @Test
