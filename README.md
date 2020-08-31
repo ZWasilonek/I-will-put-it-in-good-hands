@@ -16,6 +16,7 @@
  * JQuery
  * CSS
  * HTML
+ * JUnit 5
  
  ## Uruchamianie aplikacji
  
