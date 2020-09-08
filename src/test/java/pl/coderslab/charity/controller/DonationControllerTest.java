@@ -26,8 +26,6 @@ class DonationControllerTest {
     FacadeDonationService donationService;
     @Mock
     Model model;
-    @Mock
-    BindingResult bindingResult;
     @InjectMocks
     DonationController donationController;
     @InjectMocks
@@ -81,6 +79,19 @@ class DonationControllerTest {
         String formPage = donationController.displayForm(model);
         //then
         assertThat(formPage).isEqualToIgnoringCase("form");
+    }
+
+    @Test
+    void getAllInstitutions() {
+        //given
+        Set<InstitutionDTO> institutions = Set.of(this.institutionDTO);
+        given(donationService.getAllInstitutions()).willReturn(institutions);
+        //when
+        Set<InstitutionDTO> allInstitutions = donationController.getAllInstitutions();
+        //then
+        then(donationService).should().getAllInstitutions();
+        assertThat(allInstitutions).hasSize(1);
+        assertThat(allInstitutions).contains(institutionDTO);
     }
 
 }
